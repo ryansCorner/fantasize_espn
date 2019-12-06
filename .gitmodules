@@ -1,0 +1,3 @@
+[submodule "ESPN-Fantasy-Football-API"]
+	path = ESPN-Fantasy-Football-API
+	url = https://github.com/mkreiser/ESPN-Fantasy-Football-API.git
