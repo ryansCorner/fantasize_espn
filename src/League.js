@@ -1,11 +1,9 @@
 import React from 'react'
 import ESPN from './services/espnService'
 import { Client, Team } from 'espn-fantasy-football-api/node-dev'
-// import { Client } from './ESPN-Fantasy-Football-API/src/client/client'
 
 
 
-// const myClient = new Client({ leagueId: 439532 })
 class League extends React.Component {
     constructor(props) {
         super(props)
@@ -19,28 +17,56 @@ class League extends React.Component {
             players: [],
             rosteredPlayers: [],
             freeAgents: [],
+            schedule: [],
         }
         this.getLeague();
         this.getStandings()
+        this.onGetMatchupStats()
 
     }
+
+    mapTeams = (team) => {
+        console.log(team)
+        var teamName = [team.location, team.nickname].join(' ')
+        var id = team.id
+        var abbrev = team.abbrev
+        var owner = team.owner[0]
+        return teamName, id, abbrev, owner
+
+    }
+
+    mapMatchups = (matchup) => {
+        console.log(matchup)
+        var blah = ''
+        var week = matchup.matchupPeriodId
+        return blah
+
+    }
+
 
     getLeague = evt => {
 
         ESPN.getLeague(551382, this.onLeagueSuccess, this.onLeagueError)
-        console.log('my client ')
-        // return boxScores
 
 
     }
 
     onLeagueSuccess = evt => {
         var data = evt.data
-        console.log('get League success', data)
+        var myTeams = []
+        console.log('get League success', data.teams)
+        var teams = evt.data.teams.map((team, idx) => {
+            console.log(idx)
+            var teamName = [team.location, team.nickname].join(' ')
+            var id = team.id
+            var abbrev = team.abbrev
+            var owner = team.owners[0]
+            return { 'id': id, 'teamName': teamName, 'abbrev': abbrev, 'owner': owner, [id]: teamName }
+        })
         this.setState({
             ...this.state,
             leagueName: data.settings.name,
-            teams: data.teams,
+            teams: teams,
             seasonId: data.seasonId,
             scoringPeriodId: data.scoringPeriodId,
             status: data.status,
@@ -57,9 +83,9 @@ class League extends React.Component {
     }
 
     onStandingsSuccess = evt => {
-        console.log('standings success', evt)
+        // console.log('standings success', evt)
         // this.onGetPlayers()
-        this.onGetTeamStats()
+        // this.onGetTeamStats()
     }
 
     onStandingsrror = err => {
@@ -71,7 +97,7 @@ class League extends React.Component {
     }
 
     getPlayersSuccess = evt => {
-        console.log('get players success', evt)
+        // console.log('get players success', evt)
         // this.onGetFreeAgents()
     }
 
@@ -84,7 +110,7 @@ class League extends React.Component {
     }
 
     getFreeAgentsSuccess = evt => {
-        console.log('get FreeAgents success', evt)
+        // console.log('get FreeAgents success', evt)
     }
 
     getFreeAgentsError = err => {
@@ -96,55 +122,152 @@ class League extends React.Component {
     }
 
     getTeamStatsSuccess = evt => {
-        console.log('get TeamStats success', evt)
+        // console.log('get TeamStats success', evt)
     }
 
     getTeamStatsError = err => {
         console.log('get TeamStats err ', err)
     }
 
-    mapTeams = props => {
-        var teamsMap = this.state.teams.map((team, idx) => {
-            const abbrev = team.abbrev
-            const id = team.id
-            const location = team.location
-            const nickname = team.nickname
-            const owner = team.owner[0]
-            return (
-                <React.Fragment>
-                    <div>
-                        <h1>
-                            {{ location }} {{ nickname }}
-                        </h1>
-                    </div>
-                </React.Fragment>
-            )
+    onGetMatchupStats = evt => {
+        ESPN.getMatchupStats(13, 1, 551382, this.getMatchupStatsSuccess, this.getMatchupStatsError)
+    }
+
+    getMatchupStatsSuccess = evt => {
+
+
+        var state = this.state.teams
+        var matchups = evt.schedule.map((matchup, idx) => {
+            var homeAway = []
+
+            for (const [key, value] of Object.entries(this.state.teams)) {
+                if (value.id === matchup.home.teamId) {
+                    var homeTeam = value.teamName
+                }
+                if (value.id === matchup.away.teamId) {
+                    var awayTeam = value.teamName
+                }
+            }
+
+            var week = matchup.matchupPeriodId
+            var homeTeam = homeTeam
+            var homeScore = matchup.home.totalPoints
+            var awayTeam = awayTeam
+            var awayScore = matchup.away.totalPoints
+            var winner = matchup.winner
+            return {
+                'week': week,
+                'homeTeam': homeTeam,
+                'homeScore': homeScore,
+                'awayTeam': awayTeam,
+                'awayScore': awayScore,
+                'winner': winner,
+            }
+
+        })
+        this.setState({
+            ...this.state,
+            members: evt.members,
+            schedule: matchups,
+            seasonId: evt.seasonId,
+            status: evt.status,
         })
     }
+
+    getMatchupStatsError = err => {
+        console.log('get MatchupStats err ', err)
+    }
+
+    onTeamClick = evt => {
+        var target = evt.target.id
+        var value = evt.value
+        console.log('team clicked', this.state)
+    }
+
+
     render() {
+        console.log('state rendered', this.state)
+
         return (
             <React.Fragment>
                 <div>
+                    <h4>
+                        {this.state.leagueName}
+                    </h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>
+                                    Team
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.leagueName && (
+                                this.state.teams.map((team, idx) => {
+
+                                    return (
+                                        <tr key={idx} id={team.id} >
+                                            <td key={idx} id={team.id} onClick={this.onTeamClick}>
+                                                {team.teamName} ({team.abbrev})
+                                            </td>
+                                        </tr>
+                                    )
+                                }))}
+
+                        </tbody>
+                    </table>
+
                     <h1>
-                        {this.state.leagueName && (
-                            this.state.teams.map((team, idx) => {
-                                const abbrev = team.abbrev
-                                const id = team.id
-                                const location = team.location
-                                const nickname = team.nickname
-                                console.log(abbrev, id, location, nickname)
-                                // const owner = team.owner.length - 1
-                                return (
-                                    <div key={idx}>
-                                        <h1>
-                                            {location} {nickname}
-                                        </h1>
-                                    </div>
-                                )
-                            }))}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        WEEK
+                                    </td>
+                                    <td>
+                                        Home Team
+                                    </td>
+                                    <td>
+                                        Home Team Score
+                                    </td>
+                                    <td>
+                                        Away Team
+                                    </td>
+                                    <td>
+                                        Away Team Score
+                                    </td>
+                                    <td>
+                                        Winner
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.schedule && (
+                                    this.state.schedule.map((matchup, idx) => {
+                                        const week = matchup.week
+                                        const winner = matchup.winner
+                                        const homeTeam = matchup.homeTeam
+                                        const awayTeam = matchup.awayTeam
+                                        const homeScore = matchup.homeScore
+                                        const awayScore = matchup.awayScore
+                                        return (
+                                            <tr key={idx}>
+                                                <td>{week}</td>
+                                                <td>{homeTeam}</td>
+                                                <td>{homeScore}</td>
+                                                <td>{awayTeam}</td>
+                                                <td>{awayScore}</td>
+                                                <td>{winner}</td>
+                                            </tr>
+                                        )
+                                    })
+                                )}
+                            </tbody>
+                        </table>
                     </h1>
                 </div>
-            </React.Fragment>
+            </React.Fragment >
         )
     }
 }

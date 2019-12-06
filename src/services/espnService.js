@@ -55,8 +55,20 @@ class ESPN {
         const year = 2019
         const team = teamId
         const scoringWeek = scoringPeriod
-        // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019?view=kona_game_state`
+        // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/551382?view=modular&view=mNav&view=mMatchupScore&view=mRoster&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam`
         const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?forTeamId=${team}&scoringPeriodId=${scoringWeek}&view=mRoster`
+        axios.get(url)
+            .then(response => onSuccess(response.data))
+            .catch(err => onError(err))
+    }
+
+    static getMatchupStats(scoringPeriod, teamId, leagueId, onSuccess, onError) {
+        const id = leagueId
+        const year = 2019
+        const team = teamId
+        const scoringWeek = scoringPeriod
+        const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?view=modular&view=mNav&view=mMatchupScore&view=mRoster&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam`
+        // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?forTeamId=${team}&scoringPeriodId=${scoringWeek}&view=mRoster`
         axios.get(url)
             .then(response => onSuccess(response.data))
             .catch(err => onError(err))
