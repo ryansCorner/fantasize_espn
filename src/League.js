@@ -9,35 +9,139 @@ import { Client, Team } from 'espn-fantasy-football-api/node-dev'
 class League extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            leagueName: '',
+            teams: [],
+            seasonId: '',
+            scoringPeriodId: '',
+            leagueId: '',
+            status: [],
+            players: [],
+            rosteredPlayers: [],
+            freeAgents: [],
+        }
         this.getLeague();
+        this.getStandings()
 
     }
 
     getLeague = evt => {
-        const id = 439532
-        const myClient = new Client({ leagueId: 439532 })
-        const theClient = myClient.setCookies({ espnS2: 'AEAeVN%2BhNMhp67TD%2BIcKwy0QCd1KFkfgtLIV3FtZ4LgeSwI9W3zZyLlIq3ljbHzoQg6lpXht7rDN6Psd4irXYr47MSlvj8dz4aAyI9tUe3Olk1F3hRlxv4IPlLQcB8LTyg5LLJg5dzjOpsVndffbqMt6Hj4QOTjXSnyyIHN%2FRMPK6qu%2Bs%2Bzg1wI4Wd6WDSgBRmFc3ZN5dONd75LfbES1gxQdXd34fHGagz%2BXQqyIHW1KuWvrKcT8LBU1CeDW%2BPt3BsRjX8mF4TeMlBeRpZ%2FBqR0A0%2B3bJW%2Fu2QS%2FnDi%2FZ%2FkvXcAfMkPd4SFykafpSU6bseg%3D', SWID: '{80C81CC1-0A6F-4A4D-A84F-CA8081200E28}' })
-        const boxScores = myClient.getBoxscoreForWeek(2019, 3, 3)
-        // ESPN.getLeague(id, this.onLeagueSuccess, this.onLeagueError)
+
+        ESPN.getLeague(551382, this.onLeagueSuccess, this.onLeagueError)
         console.log('my client ')
-        return boxScores
+        // return boxScores
 
 
     }
 
     onLeagueSuccess = evt => {
-        console.log('get League success', evt)
+        var data = evt.data
+        console.log('get League success', data)
+        this.setState({
+            ...this.state,
+            leagueName: data.settings.name,
+            teams: data.teams,
+            seasonId: data.seasonId,
+            scoringPeriodId: data.scoringPeriodId,
+            status: data.status,
+        })
     }
 
     onLeagueError = err => {
         console.log('get League error', err)
+    }
+
+    getStandings = evt => {
+        ESPN.getStandings(551382, this.onStandingsSuccess, this.onStandingsrror)
+
+    }
+
+    onStandingsSuccess = evt => {
+        console.log('standings success', evt)
+        // this.onGetPlayers()
+        this.onGetTeamStats()
+    }
+
+    onStandingsrror = err => {
+        console.log('standings err', err)
+    }
+
+    onGetPlayers = evt => {
+        ESPN.getPlayers(551382, this.getPlayersSuccess, this.getPlayersError)
+    }
+
+    getPlayersSuccess = evt => {
+        console.log('get players success', evt)
+        // this.onGetFreeAgents()
+    }
+
+    getPlayersError = err => {
+        console.log('get players err ', err)
+    }
+
+    onGetFreeAgents = evt => {
+        ESPN.getFreeAgents(551382, this.getFreeAgentsSuccess, this.getFreeAgentsError)
+    }
+
+    getFreeAgentsSuccess = evt => {
+        console.log('get FreeAgents success', evt)
+    }
+
+    getFreeAgentsError = err => {
+        console.log('get FreeAgents err ', err)
+    }
+
+    onGetTeamStats = evt => {
+        ESPN.getTeamStats(13, 1, 551382, this.getTeamStatsSuccess, this.getTeamStatsError)
+    }
+
+    getTeamStatsSuccess = evt => {
+        console.log('get TeamStats success', evt)
+    }
+
+    getTeamStatsError = err => {
+        console.log('get TeamStats err ', err)
+    }
+
+    mapTeams = props => {
+        var teamsMap = this.state.teams.map((team, idx) => {
+            const abbrev = team.abbrev
+            const id = team.id
+            const location = team.location
+            const nickname = team.nickname
+            const owner = team.owner[0]
+            return (
+                <React.Fragment>
+                    <div>
+                        <h1>
+                            {{ location }} {{ nickname }}
+                        </h1>
+                    </div>
+                </React.Fragment>
+            )
+        })
     }
     render() {
         return (
             <React.Fragment>
                 <div>
                     <h1>
-
+                        {this.state.leagueName && (
+                            this.state.teams.map((team, idx) => {
+                                const abbrev = team.abbrev
+                                const id = team.id
+                                const location = team.location
+                                const nickname = team.nickname
+                                console.log(abbrev, id, location, nickname)
+                                // const owner = team.owner.length - 1
+                                return (
+                                    <div key={idx}>
+                                        <h1>
+                                            {location} {nickname}
+                                        </h1>
+                                    </div>
+                                )
+                            }))}
                     </h1>
                 </div>
             </React.Fragment>

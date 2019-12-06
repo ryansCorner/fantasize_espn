@@ -39,7 +39,7 @@ class Client {
    * Returns all boxscores for a week.
    * NOTE: Due to the way ESPN populates data, both the `scoringPeriodId` and `matchupPeriodId` are
    * required and must correspond with each other correctly.
-   * @param  {number} options.seasonId The season in which the boxscores occur.
+   * @param  {number} options.seasonId The seaseson in which the boxscores occur.
    * @param  {number} options.matchupPeriodId
    * @param  {number} options.scoringPeriodId
    * @return {Boxscore[]}
