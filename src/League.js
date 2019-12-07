@@ -19,14 +19,13 @@ class League extends React.Component {
             freeAgents: [],
             schedule: [],
         }
-        this.getLeague();
         this.getStandings()
         this.onGetMatchupStats()
 
     }
 
     mapTeams = (team) => {
-        console.log(team)
+        // console.log(team)
         var teamName = [team.location, team.nickname].join(' ')
         var id = team.id
         var abbrev = team.abbrev
@@ -35,47 +34,6 @@ class League extends React.Component {
 
     }
 
-    mapMatchups = (matchup) => {
-        console.log(matchup)
-        var blah = ''
-        var week = matchup.matchupPeriodId
-        return blah
-
-    }
-
-
-    getLeague = evt => {
-
-        ESPN.getLeague(551382, this.onLeagueSuccess, this.onLeagueError)
-
-
-    }
-
-    onLeagueSuccess = evt => {
-        var data = evt.data
-        var myTeams = []
-        console.log('get League success', data.teams)
-        var teams = evt.data.teams.map((team, idx) => {
-            console.log(idx)
-            var teamName = [team.location, team.nickname].join(' ')
-            var id = team.id
-            var abbrev = team.abbrev
-            var owner = team.owners[0]
-            return { 'id': id, 'teamName': teamName, 'abbrev': abbrev, 'owner': owner, [id]: teamName }
-        })
-        this.setState({
-            ...this.state,
-            leagueName: data.settings.name,
-            teams: teams,
-            seasonId: data.seasonId,
-            scoringPeriodId: data.scoringPeriodId,
-            status: data.status,
-        })
-    }
-
-    onLeagueError = err => {
-        console.log('get League error', err)
-    }
 
     getStandings = evt => {
         ESPN.getStandings(551382, this.onStandingsSuccess, this.onStandingsrror)
@@ -83,7 +41,39 @@ class League extends React.Component {
     }
 
     onStandingsSuccess = evt => {
-        // console.log('standings success', evt)
+        console.log('standings success', evt)
+        var leagueName = evt.settings.name
+        var seasonId = evt.id
+        var scoringPeriodId = evt.scoringPeriodId
+
+        var teams = evt.teams.map((team, idx) => {
+            var teamName = [team.location, team.nickname].join(' ')
+            var id = team.id
+            var abbrev = team.abbrev
+            var owner = team.owners[0]
+            var logo = team.logo
+            var totalPointsFor = team.points
+            var record = team.record.overall
+            return {
+                'id': id,
+                'teamName': teamName,
+                'abbrev': abbrev,
+                'owner': owner,
+                [id]: teamName,
+                'logo': logo,
+                'totalPointsFor': totalPointsFor,
+                'record': record,
+            }
+
+        })
+        this.setState({
+            ...this.state,
+            leagueName: leagueName,
+            teams: teams,
+            seasonId: seasonId,
+            scoringPeriodId: scoringPeriodId,
+
+        })
         // this.onGetPlayers()
         // this.onGetTeamStats()
     }
@@ -122,7 +112,7 @@ class League extends React.Component {
     }
 
     getTeamStatsSuccess = evt => {
-        // console.log('get TeamStats success', evt)
+        console.log('get TeamStats success', evt)
     }
 
     getTeamStatsError = err => {
