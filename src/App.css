@@ -31,3 +31,87 @@
     transform: rotate(360deg);
   }
 }
+
+
+.matchupsTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.matchupsTable #week{
+  font-weight: 800;
+}
+
+.matchupsTable td{
+  border: 2px solid black;
+  padding: 8px;
+}
+.matchupsTable th{
+  border: 3px solid black;
+  padding: 8px;
+}
+
+.matchupsTable tr{
+  background-color: #7C987B;
+}
+
+.matchupsTable tr:nth-child(10n-4){
+  background-color: #E4A596;
+}
+.matchupsTable tr:nth-child(10n-3){
+  background-color: #E4A596;
+}
+.matchupsTable tr:nth-child(10n-2){
+  background-color: #E4A596;
+}
+.matchupsTable tr:nth-child(10n-1){
+  background-color: #E4A596;
+}
+.matchupsTable tr:nth-child(10n){
+  background-color: #E4A596;
+}
+
+
+.matchupsTable .winner {
+  font-weight: 700;
+}
+
+.matchupsTable tr:hover {background-color: #9B5F50;}
+
+.matchupsTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #C28374;
+  color: white;
+}
+
+.standingsTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.standingsTable td{
+  border: 2px solid green;
+  padding: 8px;
+}
+.standingsTable th{
+  border: 3px solid black;
+  padding: 8px;
+}
+
+/* .standingsTable tr:nth-child(5n){border-bottom: 3px solid black;} */
+
+.standingsTable .winner {
+  font-weight: 700;
+}
+
+.standingsTable tr:hover {background-color: #ddd;}
+
+.standingsTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: green;
+  color: white;
+}

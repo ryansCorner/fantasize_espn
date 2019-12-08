@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTable } from "react-table";
 
 const Table = ({ columns, data }) => {
     console.log('taaaaaaaaable ', columns, data)
