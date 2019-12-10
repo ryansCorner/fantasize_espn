@@ -1,10 +1,29 @@
 import _ from 'lodash';
 
-import { flattenObject } from '../../utils.js.js';
+// import { flattenObject } from '../../utils.js.js';
 
 /**
  * The base class for all project objects. Provides data mapping functionality.
  */
+
+const flattenObject = (object) => {
+  const flatObject = {};
+
+  _.forEach(object, (value, key) => {
+    if (_.isPlainObject(value)) {
+      _.assign(flatObject, flattenObject(value));
+    } else {
+      _.set(flatObject, key, value);
+    }
+  });
+
+  return flatObject;
+};
+
+export {
+  flattenObject
+};
+
 class BaseObject {
   /**
    * @param {Object} options Properties to be assigned to the BaseObject. Must match the keys of the

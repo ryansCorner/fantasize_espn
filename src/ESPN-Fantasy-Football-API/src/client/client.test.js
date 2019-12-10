@@ -299,7 +299,7 @@ describe('Client', () => {
       test('calls axios.get with the correct params', () => {
         const routeBase = `${leagueId}`;
         const routeParams = `?scoringPeriodId=${scoringPeriodId}&seasonId=${seasonId}` +
-         '&view=mMatchupScore&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam';
+          '&view=mMatchupScore&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam';
         const route = `${routeBase}${routeParams}`;
 
         const config = {};
