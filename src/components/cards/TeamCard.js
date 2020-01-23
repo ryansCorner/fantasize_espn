@@ -7,7 +7,7 @@ const TeamCard = props => {
             {props.teams.map((team, idx) => {
 
                 return (
-                    <div className='team-card'>
+                    <div className='team-card' key={idx}>
                         <div className='team-card-container'>
                             <div className='team-card-header'>
                                 <img className='team-card-img' src={team.logoURL} />

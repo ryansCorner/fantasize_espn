@@ -1,8 +1,10 @@
-import React from 'react';
+import React from 'react'
 import logo from './logo.svg';
 import './App.css';
 import ESPN from './services/espnService'
 import League from './League';
+import { withRouter } from 'react-router-dom'
+import Layout from './components/templates/layout/Layout';
 // import ESPN from '../ESPN-Fantasy-Football-API/src/client'
 
 function App() {
@@ -22,10 +24,11 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <League />
+      <Layout />
+      {/* <League /> */}
     </div>
 
   );
 }
 
-export default App;
+export default withRouter(App);

@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter, Link } from 'react-router-dom'
 
 
 const StandingsTable = props => {
@@ -7,6 +8,9 @@ const StandingsTable = props => {
             <table className='table standings-table'>
                 <thead>
                     <tr>
+                        <th>
+                            Rank
+                        </th>
                         <th>
                             Team
                                 </th>
@@ -30,9 +34,18 @@ const StandingsTable = props => {
                         // console.log(team)
                         return (
                             <tr key={idx} id={team.id} >
-                                <td key={idx} id={team.id} onClick={props.onTeamClick} className='name-and-logo'>
-                                    <div ><img className='standings-table-logo' src={team.logoURL} /></div>  {team.name} ({team.abbreviation})
-  </td>
+                                <td>{team.finalStandingsPosition}</td>
+                                <Link to='/teamPage'>
+                                    <td key={idx}
+                                        id={team.id}
+                                        onClick={props.onTeamClick}
+                                        className='name-and-logo'>
+                                        <div >
+                                            <img className='standings-table-logo' src={team.logoURL} />
+                                        </div>
+                                        {team.name} ({team.abbreviation})
+                                 </td>
+                                </Link>
                                 <td>
                                     {(team.wins + " - " + team.losses)}
                                 </td>
@@ -40,10 +53,10 @@ const StandingsTable = props => {
                                     {team.record.gamesBack}
                                 </td> */}
                                 <td>
-                                    {team.totalPointsScored}
+                                    {team.totalPointsFor}
                                 </td>
                                 <td>
-                                    {team.regularSeasonPointsAgainst}
+                                    {team.totalPointsAgainst}
                                 </td>
 
 
@@ -57,4 +70,4 @@ const StandingsTable = props => {
         </React.Fragment>
     )
 }
-export default StandingsTable
+export default withRouter(StandingsTable)

@@ -51,7 +51,7 @@ class League extends React.Component {
             teamsAtWeek: '',
             boxScoreForWeek: '',
             historicalScoreboard: '',
-
+            week: '',
 
 
         }
@@ -61,14 +61,25 @@ class League extends React.Component {
         this.getLeagueInfo()
         this.getHistoricalScoreboardForWeek()
         this.getFreeAgents()
+        this.getMyTeam()
 
 
     }
 
+    onChange = event => {
+        const key = event.target.name;
+        const value = event.target.value;
+        this.setState({
+            organization: {
+                [key]: value
+            }
+        });
+    };
+
     getStuff = evt => {
         var scoringPeriodId = 5
 
-        ESPN.getStuff(scoringPeriodId, this.onStuffSuccess, this.onStuffError)
+        ESPN.getStuff(this.state.scoringPeriodId, this.onStuffSuccess, this.onStuffError)
     }
 
     onStuffSuccess = evt => {
@@ -115,11 +126,11 @@ class League extends React.Component {
     getBoxScoreForWeek = evt => {
         var scoringPeriodId = 9
         var matchupPeriodId = 9
-        ESPN.getBoxScoreForWeek(scoringPeriodId, matchupPeriodId, this.onBoxScoreWeekSuccess, this.onBoxScoreWeekError)
+        ESPN.getBoxScoreForWeek(this.state.scoringPeriodId, matchupPeriodId, this.onBoxScoreWeekSuccess, this.onBoxScoreWeekError)
     }
 
     onBoxScoreWeekSuccess = evt => {
-        console.log("$$$$$$", evt)
+        console.log("da league box score week success", evt)
         var matchups = evt.map((matchup, idx) => {
             for (const [key, value] of Object.entries(this.state.teamsAtWeek)) {
                 if (value.id === matchup.homeTeamId) {
@@ -160,13 +171,12 @@ class League extends React.Component {
     }
 
     getTeamsAtWeek = evt => {
-        var scoringPeriodId = 5
 
-        ESPN.getTeamsAtWeek(scoringPeriodId, this.onTeamsAtWeekSuccess, this.onTeamsAtWeekError)
+        ESPN.getTeamsAtWeek(this.state.scoringPeriodId, this.onTeamsAtWeekSuccess, this.onTeamsAtWeekError)
     }
 
     onTeamsAtWeekSuccess = evt => {
-        console.log('TeamsAtWeek success:', evt)
+        console.log('da league TeamsAtWeek success:', evt)
         this.setState({
             ...this.state,
             teamsAtWeek: evt,
@@ -182,7 +192,7 @@ class League extends React.Component {
     }
 
     onLeagueInfoSuccess = evt => {
-        console.log('LeagueInfo success:', evt)
+        console.log('da league LeagueInfo success:', evt)
         this.setState({
             ...this.state,
             leagueInfo: evt,
@@ -196,11 +206,11 @@ class League extends React.Component {
     getFreeAgents = evt => {
         var scoringPeriodId = 5
 
-        ESPN.getFreeAgents(scoringPeriodId, this.onFreeAgentsSuccess, this.onFreeAgentsError)
+        ESPN.getFreeAgents(this.state.scoringPeriodId, this.onFreeAgentsSuccess, this.onFreeAgentsError)
     }
 
     onFreeAgentsSuccess = evt => {
-        console.log('FreeAgents success:', evt)
+        console.log('da league FreeAgents success:', evt)
         this.setState({
             ...this.state,
             freeAgents: evt,
@@ -214,11 +224,11 @@ class League extends React.Component {
     getHistoricalScoreboardForWeek = evt => {
         var scoringPeriodId = 5
         var matchupPeriodId = 5
-        ESPN.getHistoricalScoreboardForWeek(scoringPeriodId, matchupPeriodId, this.onHistoricalScoreboardForWeekSuccess, this.onHistoricalScoreboardForWeekError)
+        ESPN.getHistoricalScoreboardForWeek(1, 1, this.onHistoricalScoreboardForWeekSuccess, this.onHistoricalScoreboardForWeekError)
     }
 
     onHistoricalScoreboardForWeekSuccess = evt => {
-        console.log('HistoricalScoreboardForWeek success:', evt)
+        console.log('da league HistoricalScoreboardForWeek success:***************************', evt)
         this.setState({
             ...this.state,
             historicalScoreboard: evt,
@@ -235,7 +245,7 @@ class League extends React.Component {
     }
 
     onStandingsSuccess = evt => {
-        // console.log('standings success', evt)
+        console.log('public standings success', evt)
         var leagueName = evt.settings.name
         var seasonId = evt.id
         var scoringPeriodId = evt.scoringPeriodId
@@ -251,6 +261,7 @@ class League extends React.Component {
             var wins = team.record.overall.wins
             var losses = team.record.overall.losses
             var regularSeasonPointsAgainst = Math.round(team.record.overall.pointsAgainst * 10) / 10
+            var finalStandingsPosition
 
             return {
                 'id': id,
@@ -290,12 +301,12 @@ class League extends React.Component {
     }
 
     getPlayersSuccess = evt => {
-        // console.log('get players success', evt)
+        console.log('public league get players success', evt)
         // this.onGetFreeAgents()
     }
 
     getPlayersError = err => {
-        console.log('get players err ', err)
+        console.log('public league get players err ', err)
     }
 
     // onGetFreeAgents = evt => {
@@ -315,7 +326,7 @@ class League extends React.Component {
     }
 
     getTeamStatsSuccess = evt => {
-        console.log('get TeamStats success', evt)
+        console.log('public get TeamStats success', evt)
     }
 
     getTeamStatsError = err => {
@@ -328,10 +339,10 @@ class League extends React.Component {
 
     getMatchupStatsSuccess = evt => {
 
-        console.log('matchup succcesssssssss', evt)
+        console.log(' public matchup succcesssssssss', evt)
 
         var state = this.state.teams
-        var matchups = evt.schedule.map((matchup, idx) => {
+        var matchups = evt.data.schedule.map((matchup, idx) => {
             var homeAway = []
 
             for (const [key, value] of Object.entries(this.state.teams)) {
@@ -378,6 +389,18 @@ class League extends React.Component {
         console.log('team clicked', this.state)
     }
 
+    getMyTeam = evt => {
+        ESPN.myTeam(13, 1, 551382, this.myTeamSuccess, this.myTeamError)
+    }
+
+    myTeamSuccess = evt => {
+        console.log('public get TeamStats success', evt)
+    }
+
+    myTeamError = err => {
+        console.log('get TeamStats err ', err)
+    }
+
 
     render() {
         // console.log('state rendered', this.state)
@@ -385,6 +408,26 @@ class League extends React.Component {
         return (
             <React.Fragment>
                 <div>
+                    <select type='dropdown' name='scoringPeriodId' onChange={this.onChange}>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='10'>10</option>
+                        <option value='11'>11</option>
+                        <option value='12'>12</option>
+                        <option value='13'>13</option>
+                        <option value='14'>14</option>
+                        <option value='15'>15</option>
+                        <option value='16'>16</option>
+                        <option value='17'>17</option>
+
+                    </select>
                     {(this.state.teamsAtWeek && this.state.boxScoreForWeek) && (
                         <div className='team-card-flex'>
 

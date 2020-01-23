@@ -2,7 +2,7 @@ import axios from 'axios'
 import dotenv from 'dotenv'
 import _ from 'lodash'
 import { Client } from 'espn-fantasy-football-api'
-// const myClient = new Client({ leagueId: 439532 })
+
 
 dotenv.config()
 
@@ -105,10 +105,12 @@ class ESPN {
             .catch(err => onError(err))
     }
 
-    static getPlayers(leagueId, onSuccess, onError) {
-        const id = leagueId
+    static getRoster(scoringPeriod, teamId, leagueId, onSuccess, onError) {
+        const league = leagueId
+        const team = teamId
+        const week = scoringPeriod
         const year = 2019
-        const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/players?scoringPeriodId=0&view=players_wl`
+        const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${league}?forTeamId=${team}&scoringPeriodId=${week}&view=mRoster`
         // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/${year}/segments/0/leagues/${id}?view=kona_player_info`
         axios.get(url)
             .then(response => onSuccess(response.data))
@@ -154,5 +156,45 @@ class ESPN {
             })
             .catch(err => onError(err))
     }
+
+    static myTeam(scoringPeriod, teamId, leagueId, onSuccess, onError) {
+        console.log('my team')
+        const id = leagueId
+        const year = 2019
+        const team = teamId
+
+        const scoringWeek = scoringPeriod
+        const matchupPeriodId = 13
+        const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?rosterForTeamId=${team}&view=mDraftDetail&view=mLiveScoring&view=mMatchupScore&view=mPendingTransactions&view=mPositionalRatings&view=mRoster&view=mSettings&view=mTeam&view=modular&view=mNav`
+        // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?view=modular&view=mNav&view=mMatchupScore&view=mRoster&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam`
+        // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?forTeamId=${team}&scoringPeriodId=${scoringWeek}&view=mRoster`
+        axios.get(url)
+            .then(response => {
+                // const schedule = _.get(response.data, 'schedule'); // Data is an array instead of object
+                // const data = _.filter(schedule, { matchupPeriodId });
+                onSuccess(response)
+            })
+            .catch(err => onError(err))
+    }
+
+    static boxScore(scoringPeriod, leagueId, onSuccess, onError) {
+        console.log('my team')
+        const id = leagueId
+        const year = 2019
+
+        const scoringWeek = scoringPeriod
+        const matchupPeriodId = 13
+        const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?view=modular&view=mNav&view=mMatchupScore&view=mRoster&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam&view=kona_player_info&view=player_wl`
+        // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?view=modular&view=mNav&view=mMatchupScore&view=mRoster&view=mScoreboard&view=mSettings&view=mTopPerformers&view=mTeam`
+        // const url = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2019/segments/0/leagues/${id}?forTeamId=${team}&scoringPeriodId=${scoringWeek}&view=mRoster`
+        axios.get(url)
+            .then(response => {
+                // const schedule = _.get(response.data, 'schedule'); // Data is an array instead of object
+                // const data = _.filter(schedule, { matchupPeriodId });
+                onSuccess(response)
+            })
+            .catch(err => onError(err))
+    }
+
 }
 export default ESPN
