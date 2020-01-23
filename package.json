@@ -2,6 +2,7 @@
   "name": "fantasize-espn",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
     "add": "^2.0.6",
     "axios": "^0.19.0",

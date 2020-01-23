@@ -17,6 +17,8 @@ class Layout extends React.Component {
             scoringPeriodId: '1',
             teams: '',
             activeTeam: '',
+            ready: false,
+
 
 
         }
@@ -63,6 +65,11 @@ class Layout extends React.Component {
 
     getRosterSuccess = evt => {
         console.log('my teams roster', evt)
+        this.setState({
+            ...this.state,
+            activeRoster: evt.teams[0].roster,
+            ready: true,
+        })
     }
 
     getRosterError = err => {
@@ -325,6 +332,7 @@ class Layout extends React.Component {
                                                 state={this.state}
                                                 onTeamClick={this.onTeamClick}
                                                 activeTeam={this.state.activeTeam}
+                                                activeRoster={this.state.activeRoster}
 
                                             />
                                         )}
