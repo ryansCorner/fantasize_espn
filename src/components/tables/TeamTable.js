@@ -1,7 +1,6 @@
 import React from 'react'
 
 const TeamTable = props => {
-    console.log('team table props: ', props)
     return (
         <React.Fragment>
             <div className=''>
@@ -35,16 +34,17 @@ const TeamTable = props => {
                             })}
                         </tr>
                         <tr>
+                            <h3>Deviation from Projection</h3>
+<td>{props.deviationFromProjection}</td>
+                        </tr>
+                        {/* <tr>
                             <h3>Points Away from Optimal Lineup</h3>
                         </tr>
-                        <tr>
-                            <h3>Deviation from Projection</h3>
-
-                        </tr>
+                        
                         <tr>
                             <h3> Opponent's Deviation from Projection</h3>
 
-                        </tr>
+                        </tr> */}
                     </tbody>
                     <tbody>
 

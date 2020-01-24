@@ -23,7 +23,15 @@ class Layout extends React.Component {
 
         }
     }
-
+    onWeekChange = event => {
+        const key = event.target.name;
+        const value = event.target.value;
+        console.log(key, value)
+        this.setState({
+            [key]: value
+        });
+        ESPN.getRoster(value, this.state.activeTeam.id, 551382, this.getRosterSuccess, this.getRosterError)
+    };
     onTeamClick = evt => {
         ESPN.getMatchupStats(this.state.scoringPeriodId, evt.target.id, 551382, this.getMatchupStatsSuccess, this.getMatchupStatsError)
         ESPN.getRoster(this.state.scoringPeriodId, evt.target.id, 551382, this.getRosterSuccess, this.getRosterError)
@@ -63,12 +71,125 @@ class Layout extends React.Component {
         })
     }
 
+
+
     getRosterSuccess = evt => {
         console.log('my teams roster', evt)
+        var team = evt.teams[0].roster.entries
+        var rosterAry = []
+        var projectedTotal = 0
+        var actualScore = 0
+        var roster = team.map((player, idx) => {
+
+            var playerStats = player.playerPoolEntry.player.stats
+            for (const [key, value] of Object.entries(playerStats)) {
+                if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
+                    console.log('value appliedTotal: ', value.appliedTotal)
+                    var projectedPoints = Math.round(value.appliedTotal * 10) / 10
+                    console.log('projected Points: ', projectedPoints)
+                    break;
+                }
+
+            }
+            for (const [key, value] of Object.entries(playerStats)) {
+                if (value.statSourceId == 0 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
+                    var points = Math.round(value.appliedTotal * 10) / 10
+                    break;
+                }
+            }
+            // var points = Math.round(player.playerPoolEntry.appliedStatTotal * 10) / 10
+            var i = player.playerPoolEntry.player.stats.length - 1
+            var seasonAverage = Math.round(player.playerPoolEntry.player.stats[i].appliedAverage * 10) / 10
+            var deviation = Math.round((points - projectedPoints) * 10) / 10
+            var deviationAvg = Math.round((points - seasonAverage) * 10) / 10
+
+
+
+            if (player.lineupSlotId == 0) {
+                player.order = 1
+                player.lineupSlot = 'QB'
+                player.starter = true
+            }
+            if (player.lineupSlotId == 2) {
+                player.order = 2
+                player.lineupSlot = 'RB'
+                player.starter = true
+            }
+            if (player.lineupSlotId == 4) {
+                player.order = 3
+                player.lineupSlot = 'WR'
+                player.starter = true
+            }
+            if (player.lineupSlotId == 6) {
+                player.order = 4
+                player.lineupSlot = 'TE'
+                player.starter = true
+            }
+
+            if (player.lineupSlotId == 23) {
+                player.order = 5
+                player.lineupSlot = 'FLEX'
+                player.starter = true
+            }
+            if (player.lineupSlotId == 16) {
+                player.order = 6
+                player.lineupSlot = 'D/ST'
+                player.starter = true
+            }
+            if (player.lineupSlotId == 17) {
+                player.order = 7
+                player.lineupSlot = 'K'
+                player.starter = true
+            }
+            if (player.lineupSlotId == 20) {
+                player.order = 8
+                player.lineupSlot = 'BENCH'
+                player.starter = false
+
+            }
+            if (player.lineupSlotId == 21) {
+                player.order = 9
+                player.lineupSlot = 'IR'
+                player.starter = false
+
+            }
+
+            if (player.starter) {
+                projectedTotal += projectedPoints
+            }
+
+            if (player.starter) {
+                actualScore += points
+            }
+
+
+
+            return rosterAry.push(player)
+
+        })
+        function compare(a, b) {
+            const teamA = a.order
+            const teamB = b.order
+            let comparison = 0;
+            if (teamA > teamB) {
+                comparison = 1;
+            } else if (teamA < teamB) {
+                comparison = -1;
+            }
+            return comparison;
+
+        }
+        var sortedRoster = rosterAry.sort(compare)
+        var deviationFromProjection = Math.round((actualScore - projectedTotal) * 10) / 10
+        console.log('***************ROSTER*****************', sortedRoster)
         this.setState({
             ...this.state,
-            activeRoster: evt.teams[0].roster,
+            activeRoster: sortedRoster,
             ready: true,
+            projectedTotal: projectedTotal,
+            actualScore: actualScore,
+            deviationFromProjection: deviationFromProjection,
+
         })
     }
 
@@ -90,7 +211,6 @@ class Layout extends React.Component {
 
     getMatchupStatsSuccess = evt => {
         var teams = this.state.teams
-        console.log(' public matchup succcesssssssss', evt)
 
         var matchups = evt.data.schedule.map((matchup, idx) => {
             var homeAway = []
@@ -156,7 +276,6 @@ class Layout extends React.Component {
     }
 
     onGetLeagueInfoSuccess = evt => {
-        console.log('league info: ', evt)
         this.setState({
             ...this.state,
             leagueName: evt.name
@@ -168,7 +287,6 @@ class Layout extends React.Component {
     }
 
     onTeamsAtWeekSuccess = evt => {
-        console.log('da league TeamsAtWeek success:', evt)
         var teams = evt.map((team, idx) => {
             return {
                 idx: idx,
@@ -213,10 +331,8 @@ class Layout extends React.Component {
     }
 
     onStandingsSuccess = evt => {
-        console.log('public standings success', evt)
         var leagueName = evt.settings.name
         var seasonId = evt.id
-        var scoringPeriodId = evt.scoringPeriodId
 
         var teams = evt.teams.map((team, idx) => {
             var name = [team.location, team.nickname].join(' ')
@@ -275,7 +391,6 @@ class Layout extends React.Component {
             leagueName: leagueName,
             teams: sortedTeams,
             seasonId: seasonId,
-            scoringPeriodId: scoringPeriodId,
             matchups: evt.schedule
 
         })
@@ -289,7 +404,7 @@ class Layout extends React.Component {
         console.log('standings err', err)
     }
     onBoxScoreSuccess = evt => {
-        console.log('box score success', evt)
+        // console.log('box score success', evt)
     }
     onBoxScoreError = err => {
         console.log('box score error', err)
@@ -333,7 +448,7 @@ class Layout extends React.Component {
                                                 onTeamClick={this.onTeamClick}
                                                 activeTeam={this.state.activeTeam}
                                                 activeRoster={this.state.activeRoster}
-
+                                                onWeekChange={this.onWeekChange}
                                             />
                                         )}
                                     </Row>

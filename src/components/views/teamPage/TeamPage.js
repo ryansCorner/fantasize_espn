@@ -6,7 +6,6 @@ import TeamTable from '../../tables/TeamTable'
 import RosterTable from '../../tables/RosterTable'
 
 const TeamPage = props => {
-    console.log('team page props: ', props)
     return (
         <React.Fragment>
             {props.ready && (
@@ -17,12 +16,34 @@ const TeamPage = props => {
                             <div className='team-card-header'>
                                 <img className='team-card-img' src={props.team.logoURL} />
                                 <h2>{props.team.name}</h2>
+                                <select type='dropdown' name='scoringPeriodId' onChange={props.onWeekChange} value={props.scoringPeriodId}>
+                                    <option value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                    <option value='4'>4</option>
+                                    <option value='5'>5</option>
+                                    <option value='6'>6</option>
+                                    <option value='7'>7</option>
+                                    <option value='8'>8</option>
+                                    <option value='9'>9</option>
+                                    <option value='10'>10</option>
+                                    <option value='11'>11</option>
+                                    <option value='12'>12</option>
+                                    <option value='13'>13</option>
+                                    <option value='14'>14</option>
+                                    <option value='15'>15</option>
+                                    <option value='16'>16</option>
+                                    <option value='17'>17</option>
+
+                                </select>
                             </div>
                             <TeamTable
+                                deviationFromProjection={props.deviationFromProjection}
                                 team={props.team}
                                 matchups={props.matchups}
                             />
                             <RosterTable
+                                scoringPeriodId={props.scoringPeriodId}
                                 roster={props.roster}
                             />
                         </div>

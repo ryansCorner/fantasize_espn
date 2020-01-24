@@ -158,7 +158,6 @@ class ESPN {
     }
 
     static myTeam(scoringPeriod, teamId, leagueId, onSuccess, onError) {
-        console.log('my team')
         const id = leagueId
         const year = 2019
         const team = teamId
@@ -178,7 +177,6 @@ class ESPN {
     }
 
     static boxScore(scoringPeriod, leagueId, onSuccess, onError) {
-        console.log('my team')
         const id = leagueId
         const year = 2019
 
