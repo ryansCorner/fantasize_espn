@@ -41,6 +41,7 @@ const TeamPage = props => {
                                 deviationFromProjection={props.deviationFromProjection}
                                 team={props.team}
                                 matchups={props.matchups}
+                                deviationFromOptimizedTotal={props.deviationFromOptimizedTotal}
                             />
                             <RosterTable
                                 scoringPeriodId={props.scoringPeriodId}

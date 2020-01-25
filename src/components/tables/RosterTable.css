@@ -19,3 +19,11 @@
   .negative{
       background-color: lightpink;
   }
+
+  .highlight{
+      background-color: lightblue;
+  }
+
+  .lowlight{
+      background-color: red;
+  }

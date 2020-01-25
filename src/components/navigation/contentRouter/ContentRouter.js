@@ -21,7 +21,7 @@ const ContentRouter = (props) => {
                     exact path="/"
                     render={props => <HomePage {...props} leagueName={state.leagueName} teams={state.teams} onTeamClick={onTeamClick} />} />
                 <Route path='/teamPage'
-                    render={props => <TeamPage {...props} team={state.activeTeam} matchups={state.activeTeamMatchups} roster={state.activeRoster} ready={state.ready} deviationFromProjection={state.deviationFromProjection} onWeekChange={onWeekChange} scoringPeriodId={state.scoringPeriodId}/>} />
+                    render={props => <TeamPage {...props} team={state.activeTeam} matchups={state.activeTeamMatchups} roster={state.activeRoster} ready={state.ready} deviationFromProjection={state.deviationFromProjection} onWeekChange={onWeekChange} scoringPeriodId={state.scoringPeriodId} deviationFromOptimizedTotal={state.deviationFromOptimizedTotal}/>} />
                 <Route path='/league'
                     render={props => <League {...props} team={state.activeTeam} />} />
 

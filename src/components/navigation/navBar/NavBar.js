@@ -14,7 +14,7 @@ const NavBar = props => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Link to='/league'>
-                            <Nav.Link href="#features">Features</Nav.Link>
+                            <button href="#features">Features</button>
                         </Link>
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                         <NavDropdown title="Dropdown" id="collasible-nav-dropdown">

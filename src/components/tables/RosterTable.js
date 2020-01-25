@@ -27,11 +27,8 @@ const RosterTable = props => {
                     {roster.map((player, idx) => {
                         // var projectedPoints = Math.round(player.playerPoolEntry.player.stats[2].appliedTotal * 10) / 10
                         var playerStats = player.playerPoolEntry.player.stats
-                        console.log('player stats for loop', playerStats)
                         for (const [key, value] of Object.entries(playerStats)) {
-                            console.log('in for loooooooooop', value.statSourceId, value.statSplitTypeId, value.scoringPeriodId, props.scoringPeriodId)
                             if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == props.scoringPeriodId) {
-                                console.log("value . applied total ", value.appliedTotal)
                                 var projectedPoints = Math.round(value.appliedTotal * 10) / 10
                                 break;
                             }
@@ -57,7 +54,7 @@ const RosterTable = props => {
                         }
 
                         return (
-                            <tr className='roster-table-body-row'>
+                            <tr className={'roster-table-body-row' + (player.highlight ? ' highlight' : '') + (player.lowlight ? ' lowlight' : '')}>
                                 <td className='roster-table-body-data'>{player.lineupSlot}</td>
                                 <td className='roster-table-body-data'> {player.playerPoolEntry.player.fullName}</td>
                                 <td className='roster-table-body-data'>{projectedPoints}</td>

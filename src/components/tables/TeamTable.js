@@ -37,11 +37,12 @@ const TeamTable = props => {
                             <h3>Deviation from Projection</h3>
 <td>{props.deviationFromProjection}</td>
                         </tr>
-                        {/* <tr>
+                        <tr>
                             <h3>Points Away from Optimal Lineup</h3>
+                        <td>{props.deviationFromOptimizedTotal}</td>
                         </tr>
                         
-                        <tr>
+                        {/* <tr>
                             <h3> Opponent's Deviation from Projection</h3>
 
                         </tr> */}

@@ -79,20 +79,24 @@ class Layout extends React.Component {
         var rosterAry = []
         var projectedTotal = 0
         var actualScore = 0
+        var benchProjection = 0
+        var benchTotal = 0
+        var optimizedLineup = []
+        var optimizedTotal = 0
         var roster = team.map((player, idx) => {
 
             var playerStats = player.playerPoolEntry.player.stats
             for (const [key, value] of Object.entries(playerStats)) {
                 if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
-                    console.log('value appliedTotal: ', value.appliedTotal)
                     var projectedPoints = Math.round(value.appliedTotal * 10) / 10
-                    console.log('projected Points: ', projectedPoints)
+                     player.projectedPoints= Math.round(value.appliedTotal * 10) / 10
                     break;
                 }
 
             }
             for (const [key, value] of Object.entries(playerStats)) {
                 if (value.statSourceId == 0 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
+                     player.points = Math.round(value.appliedTotal * 10) / 10
                     var points = Math.round(value.appliedTotal * 10) / 10
                     break;
                 }
@@ -156,17 +160,93 @@ class Layout extends React.Component {
 
             if (player.starter) {
                 projectedTotal += projectedPoints
-            }
-
-            if (player.starter) {
                 actualScore += points
             }
+
+            if (!player.starter) {
+                benchProjection += projectedPoints
+                benchTotal += points
+                
+            }
+            
+
+
 
 
 
             return rosterAry.push(player)
 
         })
+console.log('roster ARRAY***', rosterAry)
+
+
+function benchCompare(a,b){
+    const playerA = a
+    const playerB = b
+    const playerAslots= a.playerPoolEntry.player.eligibleSlots
+    const playerBposition = b.lineupSlotId
+    const playerAname= a.playerPoolEntry.player.fullName
+    const playerBname= b.playerPoolEntry.player.fullName
+for(var i =0 ; i < playerAslots.length; i++){
+    
+if(playerAslots[i] == playerBposition){
+    // console.log(`${playerAname} is eligible at ${playerAslots[i]} and ${playerBname} is starting at ${playerBposition}`, (playerAslots[i]== playerBposition))
+    var eligibleSwap = true
+}}
+return eligibleSwap
+}
+
+
+
+var optiRoster = rosterAry.map((player, idx)=>{
+    const playerA = player
+    // const playerB = b
+    const playerAslots= player.playerPoolEntry.player.eligibleSlots
+    // const playerBposition = b.lineupSlotId
+    const playerAname= player.playerPoolEntry.player.fullName
+    // const playerBname= b.playerPoolEntry.player.fullName
+    if(!playerA.starter){
+        // console.log(`${playerAname} is on the BENCH`)
+        for (const [key, value] of Object.entries(rosterAry)) {
+            const playerBname = value.playerPoolEntry.player.fullName
+            
+            if(value.starter){
+                // console.log(`${playerBname} is a Starter`)
+                var eligibleSwap = benchCompare(playerA, value)
+            }
+            if(value.starter && eligibleSwap && (player.points > value.points)){
+                var pointDiff = Math.round((player.points - value.points)*10) /10
+                console.log( `${playerAname} outscored ${playerBname} by ${pointDiff} points`)
+                var benchId = 20
+                var starterId = value.lineupSlotId
+                player.lineupSlotId = starterId
+                player.starer = true
+                player.highlight = true
+                value.lineupSlotId = benchId
+                value.starter = false
+                value.lowlight = true
+    optimizedTotal += pointDiff
+   break;
+            }
+            // if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
+            //     var projectedPoints = Math.round(value.appliedTotal * 10) / 10
+            //     break;
+            // }
+        }
+    }
+    return player
+
+})
+
+console.log('optiROSTER',optiRoster)
+
+// var optiRosterTotal = optiRoster.map((player, idx)=>{
+// if(player.starter){
+//    return optimizedTotal += player.points
+// }
+// })
+//  var optimizedRoster = rosterAry.sort(benchCompare)      
+
         function compare(a, b) {
             const teamA = a.order
             const teamB = b.order
@@ -180,6 +260,7 @@ class Layout extends React.Component {
 
         }
         var sortedRoster = rosterAry.sort(compare)
+        // var deviationFromOptimizedTotal = Math.round((optimizedTotal - actualScore) *10) /10
         var deviationFromProjection = Math.round((actualScore - projectedTotal) * 10) / 10
         console.log('***************ROSTER*****************', sortedRoster)
         this.setState({
@@ -189,9 +270,12 @@ class Layout extends React.Component {
             projectedTotal: projectedTotal,
             actualScore: actualScore,
             deviationFromProjection: deviationFromProjection,
+            deviationFromOptimizedTotal: Math.round(optimizedTotal) *10 /10
 
         })
     }
+
+    
 
     getRosterError = err => {
         console.log('get roster error: ', err)
