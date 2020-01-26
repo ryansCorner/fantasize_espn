@@ -43,10 +43,20 @@ const TeamPage = props => {
                                 matchups={props.matchups}
                                 deviationFromOptimizedTotal={props.deviationFromOptimizedTotal}
                             />
+                            <Row>
+                                <Col>
                             <RosterTable
                                 scoringPeriodId={props.scoringPeriodId}
                                 roster={props.roster}
                             />
+                            </Col>
+                            <Col>
+                             <RosterTable
+                                scoringPeriodId={props.scoringPeriodId}
+                                roster={props.optimizedRoster}
+                            />
+                            </Col>
+                            </Row>
                         </div>
                     </div>
                 </Container>
