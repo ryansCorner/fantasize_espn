@@ -11,6 +11,10 @@ const TeamPage = props => {
             {props.ready && (
 
                 <Container>
+                    {/* <Row>
+                        <Col> */}
+
+
                     <div className='team-card'>
                         <div className='team-card-container'>
                             <div className='team-card-header'>
@@ -37,28 +41,35 @@ const TeamPage = props => {
 
                                 </select>
                             </div>
-                            <TeamTable
-                                deviationFromProjection={props.deviationFromProjection}
-                                team={props.team}
-                                matchups={props.matchups}
-                                deviationFromOptimizedTotal={props.deviationFromOptimizedTotal}
-                            />
-                            <Row>
-                                <Col>
-                            <RosterTable
-                                scoringPeriodId={props.scoringPeriodId}
-                                roster={props.roster}
-                            />
-                            </Col>
-                            <Col>
-                             <RosterTable
-                                scoringPeriodId={props.scoringPeriodId}
-                                roster={props.optimizedRoster}
-                            />
-                            </Col>
-                            </Row>
+                            <Container>
+
+                                <Row>
+
+
+                                    <TeamTable
+                                        deviationFromProjection={props.deviationFromProjection}
+                                        team={props.team}
+                                        matchups={props.matchups}
+                                        deviationFromOptimizedTotal={props.deviationFromOptimizedTotal}
+                                    />
+                                </Row>
+                                <Row className='roster-table-row'>
+                                    <RosterTable
+                                        scoringPeriodId={props.scoringPeriodId}
+                                        roster={props.roster}
+                                    />
+                                    <h1>VS.</h1>
+
+                                    <RosterTable
+                                        scoringPeriodId={props.scoringPeriodId}
+                                        roster={props.optimizedRoster}
+                                    />
+                                </Row>
+                            </Container>
                         </div>
                     </div>
+                    {/* </Col>
+                    </Row> */}
                 </Container>
             )}
         </React.Fragment>

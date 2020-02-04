@@ -13,14 +13,12 @@ const RosterTable = props => {
                 <thead className='roster-table-head'>
                     <tr className='roster-table-head-row'>
                         <td className='roster-table-head-data'>Pos</td>
-                        <td className='roster-table-head-data'>Player</td>
+                        <td className='roster-table-head-data'>Player(rk)</td>
+                        <td className='roster-table-head-data bold'>Actual Score</td>
                         <td className='roster-table-head-data'>Projected Score</td>
-                        <td className='roster-table-head-data'>Actual Score</td>
                         <td className='roster-table-head-data'>Deviation From Projection</td>
-                        <td className='roster-table-head-data'>Season Average</td>
-                        <td className='roster-table-head-data'>Deviation From Average</td>
-                        <td className='roster-table-head-data'>Position Ranking</td>
-                        <td className='roster-table-head-data'>Overall Ranking</td>
+                        {/* <td className='roster-table-head-data'>Position Ranking</td>
+                        <td className='roster-table-head-data'>Overall Ranking</td> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -32,8 +30,8 @@ const RosterTable = props => {
                                 var projectedPoints = Math.round(value.appliedTotal * 10) / 10
                                 break;
                             }
-                            
-            
+
+
                         }
                         for (const [key, value] of Object.entries(playerStats)) {
                             if (value.statSourceId == 0 && value.statSplitTypeId == 1 && value.scoringPeriodId == props.scoringPeriodId) {
@@ -56,14 +54,12 @@ const RosterTable = props => {
                         return (
                             <tr className={'roster-table-body-row' + (player.highlight ? ' highlight' : '') + (player.lowlight ? ' lowlight' : '')}>
                                 <td className='roster-table-body-data'>{player.lineupSlot}</td>
-                                <td className='roster-table-body-data'> {player.playerPoolEntry.player.fullName}</td>
-                                <td className='roster-table-body-data'>{projectedPoints}</td>
-                                <td className='roster-table-body-data'>{points}</td>
+                                <td className='roster-table-body-data'> {player.playerPoolEntry.player.fullName} ({player.playerPoolEntry.ratings[0].positionalRanking})</td>
+                                <td className='roster-table-body-data bold'>{points}</td>
+                                <td className='roster-table-body-data proj'>{projectedPoints}</td>
                                 <td className={'roster-table-body-data' + (deviation > 0 ? ' positive' : ' negative')}>{deviation}</td>
-                                <td className='roster-table-body-data'>{seasonAverage}</td>
-                                <td className={'roster-table-body-data' + (deviationAvg > 0 ? ' positive' : ' negative')}>{deviationAvg}</td>
-                                <td className='roster-table-body-data'>{player.playerPoolEntry.ratings[0].positionalRanking}</td>
-                                <td className='roster-table-body-data'>{player.playerPoolEntry.ratings[0].totalRanking}</td>
+                                {/* <td className='roster-table-body-data'>{player.playerPoolEntry.ratings[0].positionalRanking}</td>
+                                <td className='roster-table-body-data'>{player.playerPoolEntry.ratings[0].totalRanking}</td> */}
 
                             </tr>
                         )

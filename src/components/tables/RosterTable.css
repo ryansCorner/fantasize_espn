@@ -1,8 +1,22 @@
 .roster-table {
     border-collapse: collapse;
-    width: 100%;
+    width: 50%;
+  }
+
+  .bold{
+    font-weight: 700;
+  }
+
+  .proj{
+    font-weight: 300;
   }
   
+  .roster-table-row{
+    flex: block;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
   .roster-table td{
     border: 3px solid black;
     padding: 8px;

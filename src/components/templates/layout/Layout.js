@@ -23,6 +23,13 @@ class Layout extends React.Component {
 
         }
     }
+
+    getAllClicked = evt => {
+        for (var i = 0; i < 17; i++) {
+
+        }
+    }
+
     onWeekChange = event => {
         const key = event.target.name;
         const value = event.target.value;
@@ -192,15 +199,15 @@ class Layout extends React.Component {
             const playerBname = b.playerPoolEntry.player.fullName
             for (var i = 0; i < playerAslots.length; i++) {
 
-                if (!playerA.starter &&(playerAslots[i] == playerBposition)) {
-                    console.log(`${playerAname} is eligible at ${playerAslots[i]} and ${playerBname} is starting at ${playerBposition}`, (playerAslots[i]== playerBposition))
+                if (!playerA.starter && (playerAslots[i] == playerBposition)) {
+                    console.log(`${playerAname} is eligible at ${playerAslots[i]} and ${playerBname} is starting at ${playerBposition}`, (playerAslots[i] == playerBposition))
                     var eligibleSwap = true
                 }
             }
             return eligibleSwap
         }
 
-        function scoreCompare(aa, bb){
+        function scoreCompare(aa, bb) {
             const teamA = aa.points
             const teamB = bb.points
             let comparison = 0;
@@ -210,7 +217,7 @@ class Layout extends React.Component {
                 comparison = -1;
             }
             return comparison;
-            
+
         }
 
 
@@ -222,12 +229,14 @@ class Layout extends React.Component {
             // const playerBposition = b.lineupSlotId
             const playerAname = mockPlayer.playerPoolEntry.player.fullName
             // const playerBname= b.playerPoolEntry.player.fullName
-                // console.log(`${playerAname} is on the BENCH`)
+            // console.log(`${playerAname} is on the BENCH`)
+            var tt = 0
+            while (tt < 289) {
                 for (const [key, value] of Object.entries(clonedTeam)) {
                     const playerBname = value.playerPoolEntry.player.fullName
-// var blah = clonedTeam.sort(scoreCompare)
-                        // console.log(`${playerBname} is a Starter`)
-                        var eligibleSwap = benchCompare(playerA, value)
+                    // var blah = clonedTeam.sort(scoreCompare)
+                    // console.log(`${playerBname} is a Starter`)
+                    var eligibleSwap = benchCompare(playerA, value)
                     if (value.starter && eligibleSwap && (mockPlayer.points > value.points)) {
                         var pointDiff = Math.round((mockPlayer.points - value.points) * 10) / 10
                         console.log(`${playerAname} outscored ${playerBname} by ${pointDiff} points`)
@@ -256,7 +265,10 @@ class Layout extends React.Component {
                     //     break;
                     // }
                 }
-            return mockPlayer
+                tt++
+                console.log(tt)
+                return mockPlayer
+            }
 
         })
 
@@ -551,15 +563,17 @@ class Layout extends React.Component {
                             <div className="layout-content">
                                 <div className="container-fluid">
                                     <Row>
-                                        {(this.state.leagueName && this.state.teams) && (
-                                            <ContentRouter
-                                                state={this.state}
-                                                onTeamClick={this.onTeamClick}
-                                                activeTeam={this.state.activeTeam}
-                                                activeRoster={this.state.activeRoster}
-                                                onWeekChange={this.onWeekChange}
-                                            />
-                                        )}
+                                        <Col>
+                                            {(this.state.leagueName && this.state.teams) && (
+                                                <ContentRouter
+                                                    state={this.state}
+                                                    onTeamClick={this.onTeamClick}
+                                                    activeTeam={this.state.activeTeam}
+                                                    activeRoster={this.state.activeRoster}
+                                                    onWeekChange={this.onWeekChange}
+                                                />
+                                            )}
+                                        </Col>
                                     </Row>
                                 </div>
                             </div>
