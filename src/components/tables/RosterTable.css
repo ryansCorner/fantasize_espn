@@ -1,6 +1,8 @@
 .roster-table {
     border-collapse: collapse;
     width: 50%;
+    opacity: 0.9;
+    background-color: antiquewhite;
   }
 
   .bold{

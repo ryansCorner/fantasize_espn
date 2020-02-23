@@ -232,6 +232,9 @@ class Layout extends React.Component {
             // console.log(`${playerAname} is on the BENCH`)
             var tt = 0
             while (tt < 289) {
+                tt++
+                console.log(tt)
+
                 for (const [key, value] of Object.entries(clonedTeam)) {
                     const playerBname = value.playerPoolEntry.player.fullName
                     // var blah = clonedTeam.sort(scoreCompare)
@@ -258,18 +261,16 @@ class Layout extends React.Component {
                         value.lowlight = true
                         optimizedTotal += pointDiff
                         console.log(optimizedTotal)
-                        break;
+                        // break;
                     }
                     // if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
                     //     var projectedPoints = Math.round(value.appliedTotal * 10) / 10
                     //     break;
                     // }
                 }
-                tt++
-                console.log(tt)
+
                 return mockPlayer
             }
-
         })
 
         console.log(optimizedTotal)
