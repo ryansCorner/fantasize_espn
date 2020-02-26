@@ -341,9 +341,11 @@ class Layout extends React.Component {
                 if (value.id === matchup.home.teamId) {
                     var homeId = value.id
                     var homeTeam = value.name
+                    var homeAbbrev = value.abbreviation
                 }
                 if (value.id === matchup.away.teamId) {
                     var awayId = value.id
+                    var awayAbbrev = value.abbreviation
 
                     var awayTeam = value.name
                 }
@@ -356,7 +358,9 @@ class Layout extends React.Component {
             var homeScore = Math.round(matchup.home.totalPoints * 10) / 10
             var awayTeam = awayTeam
             var awayScore = Math.round(matchup.away.totalPoints * 10) / 10
-            var winner = (matchup.winner === "HOME") ? homeTeam : awayTeam
+            var homeAbbrev = homeAbbrev
+            var awayAbbrev = awayAbbrev
+            var winner = (matchup.winner === "HOME") ? homeAbbrev : awayAbbrev
 
             return {
                 'homeId': homeId,
@@ -367,6 +371,8 @@ class Layout extends React.Component {
                 'awayTeam': awayTeam,
                 'awayScore': awayScore,
                 'winner': winner,
+                'homeAbbrev': homeAbbrev,
+                'awayAbbrev': awayAbbrev
             }
 
         })
@@ -550,13 +556,15 @@ class Layout extends React.Component {
                         <div className="layout-navbar sticky-top">
 
                             <Row className="navbar-row" >
-                                <Col className='nav-container-col'>
-                                    <header>
-                                        <NavBar
+                                {/* <Col className='nav-container-col'> */}
+                                {/* <header> */}
+                                <NavBar
+                                    onWeekChange={this.onWeekChange}
+                                    state={this.state}
 
-                                        />
-                                    </header>
-                                </Col>
+                                />
+                                {/* </header> */}
+                                {/* </Col> */}
                             </Row>
                         </div>
                         <div className="layout-container">

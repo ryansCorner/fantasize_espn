@@ -90,9 +90,10 @@
 
 .standings-table {
   border-collapse: collapse;
-  width: 100%;
+  width: 80%;
   opacity: 0.9;
   background-color: antiquewhite;
+  display: inline-table;
 }
 
 .standings-table td{
@@ -140,11 +141,10 @@
 }
 
 .team-card{
-  width: 90%;
   border: 4px black;
   margin: auto;
   opacity: 0.9;
-  background-color: antiquewhite;
+  background-color: orange;
 }
 
 .team-card-container{
