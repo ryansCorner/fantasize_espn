@@ -98,10 +98,12 @@
 
 .standings-table td{
   border: 3px solid black;
+  vertical-align: middle !important;
   padding: 8px;
 }
 .standings-table th{
   border: 3px solid black;
+  vertical-align: middle !important;
   padding: 8px;
 }
 
@@ -111,7 +113,7 @@
   font-weight: 700;
 }
 .standings-table-logo{
-  vertical-align: middle;
+  vertical-align: middle !important;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -130,6 +132,7 @@
   padding-bottom: 12px;
   text-align: left;
   background-color: green;
+  vertical-align: middle !important;
   color: white;
 }
 
@@ -144,7 +147,10 @@
   border: 4px black;
   margin: auto;
   opacity: 0.9;
-  background-color: orange;
+filter: drop-shadow(0px 0px 2.5px rgb(255, 255, 255));
+background-color: rgb(153, 146, 134);
+ text-shadow: 2px 2px 3px #b3a4a4;
+/* filter: drop-shadow(0px 0px 6px rgb(252, 251, 253)); */
 }
 
 .team-card-container{
@@ -177,10 +183,27 @@
 }
 
 .team-table td{
-  border: 2px solid black;
+  border: 3px solid black;
   padding: 8px;
+  font-size: 12px;
 }
+
+.team-table h5{
+  border: 3px solid black;
+  padding: 8px;
+  font-size: 12px;
+}
+
 .team-table th{
   border: 3px solid black;
   padding: 8px;
+  font-size: 14px;
 }
+
+.team-table-row{
+  flex: block;
+  flex-wrap: nowrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+

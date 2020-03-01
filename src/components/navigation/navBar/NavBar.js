@@ -10,15 +10,23 @@ const NavBar = props => {
     return (
         <React.Fragment>
             <Navbar collapseOnSelect expand="lg" bg='fantasize' variant="fantasize">
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="/">HOME</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
 
                         <NavDropdown title="Teams" id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                            {props.teams && props.teams.map((team, idx) => {
+                                return (
+
+                                    <NavDropdown.Item href="/teamPage"
+                                        key={idx}
+                                        id={team.id}
+                                        onClick={props.onTeamClick}
+                                    >  {team.name} ({team.abbreviation})</NavDropdown.Item>
+
+                                )
+                            })}
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                         </NavDropdown>

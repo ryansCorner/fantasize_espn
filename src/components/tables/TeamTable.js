@@ -8,7 +8,7 @@ const TeamTable = props => {
                 <Row>
                     <table className='table team-table'>
                         <tbody>
-                            <tr>
+                            <tr className='roster-table-head-row'>
                                 <td><p>Week</p></td>
                                 <td><p>1</p></td>
                                 <td><p>2</p></td>
@@ -27,19 +27,19 @@ const TeamTable = props => {
                                 <td><p>16-17</p></td>
                                 <td><p>Total</p></td>
                             </tr>
-                            <tr>
-                                <h3>Outcome</h3><p>True Record</p>
+                            <tr className='roster-table-head-row'>
+                                <h5>Outcome</h5><h5>True Record</h5>
                                 {props.matchups.map((matchup, idx) => {
                                     return (
                                         <td>{matchup.winner}</td>
                                     )
                                 })}
                             </tr>
-                            <tr>
+                            <tr className='roster-table-head-row'>
                                 <h5>Deviation from Projection</h5>
                                 <td>{props.deviationFromProjection}</td>
                             </tr>
-                            <tr>
+                            <tr className='roster-table-head-row'>
                                 <h5>Points Away from Optimal Lineup</h5>
                                 <td>{props.deviationFromOptimizedTotal}</td>
                             </tr>

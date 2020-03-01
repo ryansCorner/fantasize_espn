@@ -200,11 +200,29 @@ class Layout extends React.Component {
             for (var i = 0; i < playerAslots.length; i++) {
 
                 if (!playerA.starter && (playerAslots[i] == playerBposition)) {
-                    console.log(`${playerAname} is eligible at ${playerAslots[i]} and ${playerBname} is starting at ${playerBposition}`, (playerAslots[i] == playerBposition))
+                    // console.log(`${playerAname} is eligible at ${playerAslots[i]} and ${playerBname} is starting at ${playerBposition}`, (playerAslots[i] == playerBposition))
                     var eligibleSwap = true
                 }
             }
             return eligibleSwap
+        }
+
+        function starterScoreCompare(rr, yy) {
+            const playerA = rr
+            const playerB = yy
+            const playerAslots = rr.playerPoolEntry.player.eligibleSlots
+            const playerBposition = yy.lineupSlotId
+            const playerAname = rr.playerPoolEntry.player.fullName
+            const playerBname = yy.playerPoolEntry.player.fullName
+
+            for (var i = 0; i < playerAslots.length; i++) {
+
+                if (playerA.starter && (playerAslots[i] == playerBposition)) {
+                    // console.log(`${playerAname} is eligible at ${playerAslots[i]} and ${playerBname} is starting at ${playerBposition}`, (playerAslots[i] == playerBposition))
+                    var starterFlexSwap = true
+                }
+            }
+            return starterFlexSwap
         }
 
         function scoreCompare(aa, bb) {
@@ -220,29 +238,26 @@ class Layout extends React.Component {
 
         }
 
+        function optimizedMyRosterFunc(roster) {
+            var felterTeam = roster.map((mockPlayer, idx) => {
+                const playerA = mockPlayer
+                // const playerB = b
+                const playerAslots = mockPlayer.playerPoolEntry.player.eligibleSlots
+                // const playerBposition = b.lineupSlotId
+                const playerAname = mockPlayer.playerPoolEntry.player.fullName
+                // const playerBname= b.playerPoolEntry.player.fullName
+                // console.log(`${playerAname} is on the BENCH`)
 
 
-        const optiRoster = clonedTeam.map((mockPlayer, idx) => {
-            const playerA = mockPlayer
-            // const playerB = b
-            const playerAslots = mockPlayer.playerPoolEntry.player.eligibleSlots
-            // const playerBposition = b.lineupSlotId
-            const playerAname = mockPlayer.playerPoolEntry.player.fullName
-            // const playerBname= b.playerPoolEntry.player.fullName
-            // console.log(`${playerAname} is on the BENCH`)
-            var tt = 0
-            while (tt < 289) {
-                tt++
-                console.log(tt)
-
-                for (const [key, value] of Object.entries(clonedTeam)) {
+                for (const [key, value] of Object.entries(roster)) {
                     const playerBname = value.playerPoolEntry.player.fullName
                     // var blah = clonedTeam.sort(scoreCompare)
                     // console.log(`${playerBname} is a Starter`)
                     var eligibleSwap = benchCompare(playerA, value)
+                    var eligibleStartFlexSwap = starterScoreCompare(playerA, value)
                     if (value.starter && eligibleSwap && (mockPlayer.points > value.points)) {
                         var pointDiff = Math.round((mockPlayer.points - value.points) * 10) / 10
-                        console.log(`${playerAname} outscored ${playerBname} by ${pointDiff} points`)
+                        // console.log(`${playerAname} outscored ${playerBname} by ${pointDiff} points`)
                         var benchId = 20
                         var starterId = value.lineupSlotId
                         var oldBenchPlayerSlot = mockPlayer.lineupSlot
@@ -260,9 +275,30 @@ class Layout extends React.Component {
                         value.starter = false
                         value.lowlight = true
                         optimizedTotal += pointDiff
-                        console.log(optimizedTotal)
+                        // console.log(optimizedTotal)
                         // break;
                     }
+                    // ***********************************************FIGURE THIS OUT*******************
+                    //                     // if (value.starter && eligibleStartFlexSwap && (mockPlayer.points > value.points)) {
+                    //                     //     var starterId = value.lineupSlotId
+                    //                     //     var oldBenchPlayerSlot = mockPlayer.lineupSlot
+                    //                     //     var oldStarterPlayerSlot = value.lineupSlot
+                    //                     //     var oldBenchOrder = mockPlayer.order
+                    //                     //     var oldStarterOrder = value.order
+                    //                     //     mockPlayer.lineupSlotId = starterId
+                    //                     //     mockPlayer.highlight = true
+                    //                     //     mockPlayer.lineupSlot = oldStarterPlayerSlot
+                    //                     //     mockPlayer.order = oldStarterOrder
+                    //                     //     value.order = oldBenchOrder
+                    //                     //     value.lineupSlot = oldBenchPlayerSlot
+                    //                     //     value.lineupSlotId = benchId
+                    //                     //     value.lowlight = true
+                    //                     //     optimizedTotal += pointDiff
+                    //                     // }
+                    // **********************************************************************************
+
+
+
                     // if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
                     //     var projectedPoints = Math.round(value.appliedTotal * 10) / 10
                     //     break;
@@ -270,17 +306,195 @@ class Layout extends React.Component {
                 }
 
                 return mockPlayer
-            }
-        })
 
-        console.log(optimizedTotal)
+            })
+            return felterTeam
+        }
+        const optimizedTeamV1 = optimizedMyRosterFunc(clonedTeam);
+        const optiTeamV1Clone = JSON.parse(JSON.stringify(optimizedTeamV1))
 
-        // var optiRosterTotal = optiRoster.map((player, idx) => {
-        //     if (player.starter) {
-        //         return optimizedTotal += player.points
+        const optimizedTeamV2 = optimizedMyRosterFunc(optiTeamV1Clone)
+        const optiTeamV2Clone = JSON.parse(JSON.stringify(optimizedTeamV2))
+
+        const optimizedTeamV3 = optimizedMyRosterFunc(optiTeamV2Clone)
+        console.log('optimizedTeamV1: ', optimizedTeamV1)
+        console.log('optimizedTeamV2: ', optimizedTeamV2)
+        console.log('optimizedTeamV3: ', optimizedTeamV3)
+
+
+        // const optiRoster = clonedTeam.map((mockPlayer, idx) => {
+        //     const playerA = mockPlayer
+        //     // const playerB = b
+        //     const playerAslots = mockPlayer.playerPoolEntry.player.eligibleSlots
+        //     // const playerBposition = b.lineupSlotId
+        //     const playerAname = mockPlayer.playerPoolEntry.player.fullName
+        //     // const playerBname= b.playerPoolEntry.player.fullName
+        //     // console.log(`${playerAname} is on the BENCH`)
+        //     var tt = 0
+        //     while (tt < 289) {
+        //         tt++
+        //         // console.log(tt)
+
+        //         for (const [key, value] of Object.entries(clonedTeam)) {
+        //             const playerBname = value.playerPoolEntry.player.fullName
+        //             // var blah = clonedTeam.sort(scoreCompare)
+        //             // console.log(`${playerBname} is a Starter`)
+        //             var eligibleSwap = benchCompare(playerA, value)
+        //             if (value.starter && eligibleSwap && (mockPlayer.points > value.points)) {
+        //                 var pointDiff = Math.round((mockPlayer.points - value.points) * 10) / 10
+        //                 // console.log(`${playerAname} outscored ${playerBname} by ${pointDiff} points`)
+        //                 var benchId = 20
+        //                 var starterId = value.lineupSlotId
+        //                 var oldBenchPlayerSlot = mockPlayer.lineupSlot
+        //                 var oldStarterPlayerSlot = value.lineupSlot
+        //                 var oldBenchOrder = mockPlayer.order
+        //                 var oldStarterOrder = value.order
+        //                 mockPlayer.lineupSlotId = starterId
+        //                 mockPlayer.starter = true
+        //                 mockPlayer.highlight = true
+        //                 mockPlayer.lineupSlot = oldStarterPlayerSlot
+        //                 mockPlayer.order = oldStarterOrder
+        //                 value.order = oldBenchOrder
+        //                 value.lineupSlot = oldBenchPlayerSlot
+        //                 value.lineupSlotId = benchId
+        //                 value.starter = false
+        //                 value.lowlight = true
+        //                 optimizedTotal += pointDiff
+        //                 // console.log(optimizedTotal)
+        //                 // break;
+        //             }
+        //             // if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
+        //             //     var projectedPoints = Math.round(value.appliedTotal * 10) / 10
+        //             //     break;
+        //             // }
+        //         }
+
+        //         return mockPlayer
         //     }
         // })
-        var optimizedRoster = clonedTeam.sort(benchCompare)
+
+        // const optimizedTeam = JSON.parse(JSON.stringify(clonedTeam))
+
+        // const sloptiRoster = optimizedTeam.map((mockPlayer, idx) => {
+        //     const playerA = mockPlayer
+        //     // const playerB = b
+        //     const playerAslots = mockPlayer.playerPoolEntry.player.eligibleSlots
+        //     // const playerBposition = b.lineupSlotId
+        //     const playerAname = mockPlayer.playerPoolEntry.player.fullName
+        //     // const playerBname= b.playerPoolEntry.player.fullName
+        //     // console.log(`${playerAname} is on the BENCH`)
+        //     var tt = 0
+        //     while (tt < 289) {
+        //         tt++
+        //         // console.log(tt)
+
+        //         for (const [key, value] of Object.entries(optimizedTeam)) {
+        //             const playerBname = value.playerPoolEntry.player.fullName
+        //             // var blah = clonedTeam.sort(scoreCompare)
+        //             // console.log(`${playerBname} is a Starter`)
+        //             var eligibleSwap = benchCompare(playerA, value)
+        //             if (value.starter && eligibleSwap && (mockPlayer.points > value.points)) {
+        //                 var pointDiff = Math.round((mockPlayer.points - value.points) * 10) / 10
+        //                 // console.log(`${playerAname} outscored ${playerBname} by ${pointDiff} points`)
+        //                 var benchId = 20
+        //                 var starterId = value.lineupSlotId
+        //                 var oldBenchPlayerSlot = mockPlayer.lineupSlot
+        //                 var oldStarterPlayerSlot = value.lineupSlot
+        //                 var oldBenchOrder = mockPlayer.order
+        //                 var oldStarterOrder = value.order
+        //                 mockPlayer.lineupSlotId = starterId
+        //                 mockPlayer.starter = true
+        //                 mockPlayer.highlight = true
+        //                 mockPlayer.lineupSlot = oldStarterPlayerSlot
+        //                 mockPlayer.order = oldStarterOrder
+        //                 value.order = oldBenchOrder
+        //                 value.lineupSlot = oldBenchPlayerSlot
+        //                 value.lineupSlotId = benchId
+        //                 value.starter = false
+        //                 value.lowlight = true
+        //                 optimizedTotal += pointDiff
+        //                 // console.log(optimizedTotal)
+        //                 // break;
+        //             }
+        //             // if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
+        //             //     var projectedPoints = Math.round(value.appliedTotal * 10) / 10
+        //             //     break;
+        //             // }
+        //         }
+
+        //         return mockPlayer
+        //     }
+        // })
+
+        // const sloptimizedTeam = JSON.parse(JSON.stringify(sloptiRoster))
+
+        // const sloptimizedRoster = sloptimizedTeam.map((mockPlayer, idx) => {
+        //     const playerA = mockPlayer
+        //     // const playerB = b
+        //     const playerAslots = mockPlayer.playerPoolEntry.player.eligibleSlots
+        //     // const playerBposition = b.lineupSlotId
+        //     const playerAname = mockPlayer.playerPoolEntry.player.fullName
+        //     // const playerBname= b.playerPoolEntry.player.fullName
+        //     // console.log(`${playerAname} is on the BENCH`)
+        //     var tt = 0
+        //     while (tt < 289) {
+        //         tt++
+        //         // console.log(tt)
+
+        //         for (const [key, value] of Object.entries(sloptimizedTeam)) {
+        //             const playerBname = value.playerPoolEntry.player.fullName
+        //             // var blah = clonedTeam.sort(scoreCompare)
+        //             // console.log(`${playerBname} is a Starter`)
+        //             var eligibleSwap = benchCompare(playerA, value)
+        //             if (value.starter && eligibleSwap && (mockPlayer.points > value.points)) {
+        //                 var pointDiff = Math.round((mockPlayer.points - value.points) * 10) / 10
+        //                 // console.log(`${playerAname} outscored ${playerBname} by ${pointDiff} points`)
+        //                 var benchId = 20
+        //                 var starterId = value.lineupSlotId
+        //                 var oldBenchPlayerSlot = mockPlayer.lineupSlot
+        //                 var oldStarterPlayerSlot = value.lineupSlot
+        //                 var oldBenchOrder = mockPlayer.order
+        //                 var oldStarterOrder = value.order
+        //                 mockPlayer.lineupSlotId = starterId
+        //                 mockPlayer.starter = true
+        //                 mockPlayer.highlight = true
+        //                 mockPlayer.lineupSlot = oldStarterPlayerSlot
+        //                 mockPlayer.order = oldStarterOrder
+        //                 value.order = oldBenchOrder
+        //                 value.lineupSlot = oldBenchPlayerSlot
+        //                 value.lineupSlotId = benchId
+        //                 value.starter = false
+        //                 value.lowlight = true
+        //                 optimizedTotal += pointDiff
+        //                 // console.log(optimizedTotal)
+        //                 // break;
+        //             }
+        //             // if (value.statSourceId == 1 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
+        //             //     var projectedPoints = Math.round(value.appliedTotal * 10) / 10
+        //             //     break;
+        //             // }
+        //         }
+
+        //         return mockPlayer
+        //     }
+        // })
+
+        // // console.log(optimizedTotal)
+
+        // // var optiRosterTotal = optiRoster.map((player, idx) => {
+        // //     if (player.starter) {
+        // //         return optimizedTotal += player.points
+        // //     }
+        // // })
+        // console.log('CLONED TEAM: ', clonedTeam)
+        // // var optimizedRoster = clonedTeam.sort(benchCompare)
+
+        // // console.log('optimized roster: ', optimizedRoster)
+        // console.log('OPTIroster: ', optiRoster)
+        // console.log('SLOPTIroster: ', sloptiRoster)
+        // console.log('DUBSLOPTIroster: ', sloptimizedRoster)
+
+
 
         function compare(a, b) {
             const teamA = a.order
@@ -294,7 +508,7 @@ class Layout extends React.Component {
             return comparison;
 
         }
-        const sortedOptimizedRoster = optimizedRoster.sort(compare)
+        const sortedOptimizedRoster = optimizedTeamV3.sort(compare)
         const sortedRoster = rosterAry.sort(compare)
         // var deviationFromOptimizedTotal = Math.round((optimizedTotal - actualScore) *10) /10
         var deviationFromProjection = Math.round((actualScore - projectedTotal) * 10) / 10
@@ -559,8 +773,10 @@ class Layout extends React.Component {
                                 {/* <Col className='nav-container-col'> */}
                                 {/* <header> */}
                                 <NavBar
+                                    teams={this.state.teams}
                                     onWeekChange={this.onWeekChange}
                                     state={this.state}
+                                    onTeamClick={this.onTeamClick}
 
                                 />
                                 {/* </header> */}

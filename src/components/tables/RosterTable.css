@@ -2,7 +2,7 @@
     border-collapse: collapse;
     width: 50%;
     opacity: 0.9;
-    background-color: rgb(215, 250, 228);
+    background-color: rgb(114, 155, 130);
   }
 
   .bold{
@@ -42,4 +42,12 @@
 
   .lowlight{
       background-color: lightcoral;
+  }
+
+  .roster-table-head-data{
+    font-size: 11px;
+  }
+
+  .roster-table-body-data{
+    font-size: 11px;
   }
