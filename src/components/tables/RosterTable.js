@@ -39,6 +39,11 @@ const RosterTable = props => {
                                 break;
                             }
                         }
+                        if (points == null) {
+                            points = 0
+                            player.playerPoolEntry.player.fullName = `${player.playerPoolEntry.player.fullName} *BYE*`
+
+                        }
                         // var points = Math.round(player.playerPoolEntry.appliedStatTotal * 10) / 10
                         var i = player.playerPoolEntry.player.stats.length - 1
                         var seasonAverage = Math.round(player.playerPoolEntry.player.stats[i].appliedAverage * 10) / 10
@@ -50,7 +55,6 @@ const RosterTable = props => {
                         if (player.starter) {
                             projectedTotal += projectedTotal
                         }
-
                         return (
                             <tr className={'roster-table-body-row' + (player.highlight ? ' highlight' : '') + (player.lowlight ? ' lowlight' : '')}>
                                 <td className='roster-table-body-data'>{player.lineupSlot}</td>

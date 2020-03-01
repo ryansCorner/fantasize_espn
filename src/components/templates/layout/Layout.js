@@ -108,10 +108,23 @@ class Layout extends React.Component {
                 if (value.statSourceId == 0 && value.statSplitTypeId == 1 && value.scoringPeriodId == this.state.scoringPeriodId) {
                     player.points = Math.round(value.appliedTotal * 10) / 10
                     var points = Math.round(value.appliedTotal * 10) / 10
+                    // console.log(`${player.name} scored ${points} points`)
                     break;
                 }
             }
+            // for (const [key, value] of Object.entries(playerStats)) {
+            //     if (!(value.statSourceId == 0 && value.statSplitTypeId == 1)) {
+            //         player.points = Math.round(value.appliedTotal * 10) / 10
+            //         var points = Math.round(value.appliedTotal * 10) / 10
+            //         console.log(`${player.name} is on a bye and scored ${points} points`)
+            //         break;
+            //     }
+            // }
             // var points = Math.round(player.playerPoolEntry.appliedStatTotal * 10) / 10
+            if (points == null) {
+                points = 0
+                // player.name = `*${player.name}`
+            }
             var i = player.playerPoolEntry.player.stats.length - 1
             var seasonAverage = Math.round(player.playerPoolEntry.player.stats[i].appliedAverage * 10) / 10
             var deviation = Math.round((points - projectedPoints) * 10) / 10
@@ -214,10 +227,14 @@ class Layout extends React.Component {
             const playerBposition = yy.lineupSlotId
             const playerAname = rr.playerPoolEntry.player.fullName
             const playerBname = yy.playerPoolEntry.player.fullName
+            const pos = (yy.lineupSlotId !== 23 && yy.lineupSlotId !== 20)
+            const flex = (rr.lineupSlotId == 23)
+            // console.log(`${playerAname} is flex : ${flex}`)
+            // console.log(`${playerAname} is not a flex or bench  : ${pos}`)
 
             for (var i = 0; i < playerAslots.length; i++) {
 
-                if (playerA.starter && (playerAslots[i] == playerBposition)) {
+                if (pos && flex && (playerAslots[i] == playerBposition)) {
                     // console.log(`${playerAname} is eligible at ${playerAslots[i]} and ${playerBname} is starting at ${playerBposition}`, (playerAslots[i] == playerBposition))
                     var starterFlexSwap = true
                 }
@@ -279,22 +296,24 @@ class Layout extends React.Component {
                         // break;
                     }
                     // ***********************************************FIGURE THIS OUT*******************
-                    //                     // if (value.starter && eligibleStartFlexSwap && (mockPlayer.points > value.points)) {
-                    //                     //     var starterId = value.lineupSlotId
-                    //                     //     var oldBenchPlayerSlot = mockPlayer.lineupSlot
-                    //                     //     var oldStarterPlayerSlot = value.lineupSlot
-                    //                     //     var oldBenchOrder = mockPlayer.order
-                    //                     //     var oldStarterOrder = value.order
-                    //                     //     mockPlayer.lineupSlotId = starterId
-                    //                     //     mockPlayer.highlight = true
-                    //                     //     mockPlayer.lineupSlot = oldStarterPlayerSlot
-                    //                     //     mockPlayer.order = oldStarterOrder
-                    //                     //     value.order = oldBenchOrder
-                    //                     //     value.lineupSlot = oldBenchPlayerSlot
-                    //                     //     value.lineupSlotId = benchId
-                    //                     //     value.lowlight = true
-                    //                     //     optimizedTotal += pointDiff
-                    //                     // }
+                    if (value.starter && eligibleStartFlexSwap && (mockPlayer.points > value.points)) {
+                        console.log(`${playerAname} played at ${mockPlayer.lineupSlot} and outscored ${playerBname} playing at ${value.lineupSlot} by ${pointDiff} points`)
+                        var benchId = mockPlayer.lineupSlotId
+                        var starterId = value.lineupSlotId
+                        var oldBenchPlayerSlot = mockPlayer.lineupSlot
+                        var oldStarterPlayerSlot = value.lineupSlot
+                        var oldBenchOrder = mockPlayer.order
+                        var oldStarterOrder = value.order
+                        mockPlayer.lineupSlotId = starterId
+                        mockPlayer.highlight = true
+                        mockPlayer.lineupSlot = oldStarterPlayerSlot
+                        mockPlayer.order = oldStarterOrder
+                        value.order = oldBenchOrder
+                        value.lineupSlot = oldBenchPlayerSlot
+                        value.lineupSlotId = benchId
+                        value.lowlight = true
+                        optimizedTotal += pointDiff
+                    }
                     // **********************************************************************************
 
 
@@ -317,9 +336,15 @@ class Layout extends React.Component {
         const optiTeamV2Clone = JSON.parse(JSON.stringify(optimizedTeamV2))
 
         const optimizedTeamV3 = optimizedMyRosterFunc(optiTeamV2Clone)
+        const optiTeamV3Clone = JSON.parse(JSON.stringify(optimizedTeamV3))
+
+        const optimizedTeamV4 = optimizedMyRosterFunc(optiTeamV3Clone)
+
+
         console.log('optimizedTeamV1: ', optimizedTeamV1)
         console.log('optimizedTeamV2: ', optimizedTeamV2)
         console.log('optimizedTeamV3: ', optimizedTeamV3)
+        console.log('optimizedTeamV4: ', optimizedTeamV4)
 
 
         // const optiRoster = clonedTeam.map((mockPlayer, idx) => {
@@ -508,7 +533,7 @@ class Layout extends React.Component {
             return comparison;
 
         }
-        const sortedOptimizedRoster = optimizedTeamV3.sort(compare)
+        const sortedOptimizedRoster = optimizedTeamV4.sort(compare)
         const sortedRoster = rosterAry.sort(compare)
         // var deviationFromOptimizedTotal = Math.round((optimizedTotal - actualScore) *10) /10
         var deviationFromProjection = Math.round((actualScore - projectedTotal) * 10) / 10
