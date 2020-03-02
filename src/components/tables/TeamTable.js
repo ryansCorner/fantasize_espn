@@ -28,19 +28,20 @@ const TeamTable = props => {
                                 <td><p>Total</p></td>
                             </tr>
                             <tr className='roster-table-head-row'>
-                                <h5>Outcome</h5><h5>True Record</h5>
+                                <td>Outcome</td>
                                 {props.matchups.map((matchup, idx) => {
+                                    console.log('matchups: ', matchup)
                                     return (
-                                        <td>{matchup.winner}</td>
+                                        <td className={'matchup-table-outcome' + (matchup.winner === props.team.abbreviation ? '-winner' : '-loser')}> {matchup.homeAbbrev} {matchup.homeScore} - {matchup.awayScore} {matchup.awayAbbrev}</td>
                                     )
                                 })}
                             </tr>
                             <tr className='roster-table-head-row'>
-                                <h5>Deviation from Projection</h5>
+                                <td>Deviation from Projection</td>
                                 <td>{props.deviationFromProjection}</td>
                             </tr>
                             <tr className='roster-table-head-row'>
-                                <h5>Points Away from Optimal Lineup</h5>
+                                <td>Points Away from Optimal Lineup</td>
                                 <td>{props.deviationFromOptimizedTotal}</td>
                             </tr>
 
@@ -56,7 +57,7 @@ const TeamTable = props => {
                     </table>
                 </Row>
             </Container>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 export default TeamTable

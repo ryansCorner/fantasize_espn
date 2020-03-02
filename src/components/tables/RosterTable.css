@@ -5,6 +5,15 @@
     background-color: rgb(220, 233, 225);
   }
 
+  .rosterTableContainer{
+flex-direction: column;
+  }
+
+
+  .roster-title{
+flex-wrap: nowrap;
+  }
+
   .bold{
     font-weight: 700;
   }

@@ -6,6 +6,7 @@ import TeamTable from '../../tables/TeamTable'
 import RosterTable from '../../tables/RosterTable'
 
 const TeamPage = props => {
+    console.log(props.team)
     return (
         <React.Fragment>
             {props.ready && (
@@ -40,6 +41,17 @@ const TeamPage = props => {
                                 <option value='17'>17</option>
 
                             </select>
+                            <div>
+                                <h5>{props.team.wins}-{props.team.losses}-{props.team.record.ties}</h5>
+                                <h5>({props.team.finalStandingsPosition} out of 10)</h5>
+                            </div>
+                            <div>
+                                <h6>{props.team.transactions.acquisitions} total acquisitions </h6>
+                            </div>
+                            <div>
+                                <h6>{props.team.transactions.moveToActive} total roster changes </h6>
+                            </div>
+
                         </div>
                         {/* </div> */}
                     </div>
@@ -59,12 +71,16 @@ const TeamPage = props => {
                     <Container>
                         <Row className='roster-table-row'>
                             <RosterTable
+                                header='Actual Roster'
                                 scoringPeriodId={props.scoringPeriodId}
                                 roster={props.roster}
                             />
+                            {/* <h1>Actual Lineup</h1> */}
                             <h1>VS.</h1>
-
+                            {/* <h1>Optimized Roster</h1> */}
                             <RosterTable
+                                header='Optimized Roster'
+
                                 scoringPeriodId={props.scoringPeriodId}
                                 roster={props.optimizedRoster}
                             />

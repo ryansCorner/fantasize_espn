@@ -312,7 +312,7 @@ class Layout extends React.Component {
                         value.lineupSlot = oldBenchPlayerSlot
                         value.lineupSlotId = benchId
                         value.lowlight = true
-                        optimizedTotal += pointDiff
+                        // optimizedTotal += pointDiff
                     }
                     // **********************************************************************************
 
