@@ -806,20 +806,16 @@ class Layout extends React.Component {
                     <div className="layout-container">
 
                         <div className="layout-content">
-                            <div className="container-fluid">
-                                <div className='row'>
-                                    <div className='col'>
-                                        {(this.state.leagueName && this.state.teams) && (
-                                            <ContentRouter
-                                                state={this.state}
-                                                onTeamClick={this.onTeamClick}
-                                                activeTeam={this.state.activeTeam}
-                                                activeRoster={this.state.activeRoster}
-                                                onWeekChange={this.onWeekChange}
-                                            />
-                                        )}
-                                    </div>
-                                </div>
+                            <div className='col-12'>
+                                {(this.state.leagueName && this.state.teams) && (
+                                    <ContentRouter
+                                        state={this.state}
+                                        onTeamClick={this.onTeamClick}
+                                        activeTeam={this.state.activeTeam}
+                                        activeRoster={this.state.activeRoster}
+                                        onWeekChange={this.onWeekChange}
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>

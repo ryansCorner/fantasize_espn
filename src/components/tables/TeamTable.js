@@ -3,7 +3,8 @@ import React from 'react'
 const TeamTable = props => {
     return (
         <React.Fragment>
-            <div className='row'>
+            <div className='col-12'>
+
                 <table className='table team-table'>
                     <tbody>
                         <tr className='roster-table-head-row'>

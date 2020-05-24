@@ -10,7 +10,7 @@ const TeamPage = props => {
         <React.Fragment>
             {props.ready && (
                 <React.Fragment>
-                    <div className='team-card'>
+                    <div className='team-card col-12'>
                         <div className='team-card-header'>
                             <img className='team-card-img' src={props.team.logoURL} />
                             <h2>{props.team.name}</h2>

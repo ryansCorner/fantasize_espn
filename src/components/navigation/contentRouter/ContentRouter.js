@@ -11,21 +11,18 @@ const ContentRouter = (props) => {
 
     return (
         <React.Fragment>
-            <div className="container-fluid">
-                {/* /* components will be individual routers */
+            {/* /* components will be individual routers */
         /* Top left "logo" route */}
-                {/* Top navbar routes */}
+            {/* Top navbar routes */}
 
-                <Route path="" component="" />
-                <Route
-                    exact path="/"
-                    render={props => <HomePage {...props} leagueName={state.leagueName} teams={state.teams} onTeamClick={onTeamClick} />} />
-                <Route path='/teamPage'
-                    render={props => <TeamPage {...props} team={state.activeTeam} matchups={state.activeTeamMatchups} roster={state.activeRoster} ready={state.ready} deviationFromProjection={state.deviationFromProjection} onWeekChange={onWeekChange} scoringPeriodId={state.scoringPeriodId} deviationFromOptimizedTotal={state.deviationFromOptimizedTotal} optimizedRoster={state.optimizedRoster}/>} />
-                <Route path='/league'
-                    render={props => <League {...props} team={state.activeTeam} />} />
-
-            </div>
+            <Route path="" component="" />
+            <Route
+                exact path="/"
+                render={props => <HomePage {...props} leagueName={state.leagueName} teams={state.teams} onTeamClick={onTeamClick} />} />
+            <Route path='/teamPage'
+                render={props => <TeamPage {...props} team={state.activeTeam} matchups={state.activeTeamMatchups} roster={state.activeRoster} ready={state.ready} deviationFromProjection={state.deviationFromProjection} onWeekChange={onWeekChange} scoringPeriodId={state.scoringPeriodId} deviationFromOptimizedTotal={state.deviationFromOptimizedTotal} optimizedRoster={state.optimizedRoster} />} />
+            <Route path='/league'
+                render={props => <League {...props} team={state.activeTeam} />} />
         </React.Fragment>
     )
 }
