@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ryansCorner/fantasize_espn/static/css/main.b5c0aa14.chunk.css",
-    "main.js": "/ryansCorner/fantasize_espn/static/js/main.39aa269d.chunk.js",
-    "main.js.map": "/ryansCorner/fantasize_espn/static/js/main.39aa269d.chunk.js.map",
-    "runtime~main.js": "/ryansCorner/fantasize_espn/static/js/runtime~main.23cc6288.js",
-    "runtime~main.js.map": "/ryansCorner/fantasize_espn/static/js/runtime~main.23cc6288.js.map",
-    "static/js/2.0e62dfba.chunk.js": "/ryansCorner/fantasize_espn/static/js/2.0e62dfba.chunk.js",
-    "static/js/2.0e62dfba.chunk.js.map": "/ryansCorner/fantasize_espn/static/js/2.0e62dfba.chunk.js.map",
-    "index.html": "/ryansCorner/fantasize_espn/index.html",
-    "precache-manifest.5badcbfab891a9158d3bc78c7217ff51.js": "/ryansCorner/fantasize_espn/precache-manifest.5badcbfab891a9158d3bc78c7217ff51.js",
-    "service-worker.js": "/ryansCorner/fantasize_espn/service-worker.js",
-    "static/css/main.b5c0aa14.chunk.css.map": "/ryansCorner/fantasize_espn/static/css/main.b5c0aa14.chunk.css.map",
-    "static/media/logo.svg": "/ryansCorner/fantasize_espn/static/media/logo.5d5d9eef.svg"
+    "main.css": "/fantasize_espn/static/css/main.fa95fa3c.chunk.css",
+    "main.js": "/fantasize_espn/static/js/main.e668d49b.chunk.js",
+    "main.js.map": "/fantasize_espn/static/js/main.e668d49b.chunk.js.map",
+    "runtime~main.js": "/fantasize_espn/static/js/runtime~main.a37078da.js",
+    "runtime~main.js.map": "/fantasize_espn/static/js/runtime~main.a37078da.js.map",
+    "static/js/2.626e8d8f.chunk.js": "/fantasize_espn/static/js/2.626e8d8f.chunk.js",
+    "static/js/2.626e8d8f.chunk.js.map": "/fantasize_espn/static/js/2.626e8d8f.chunk.js.map",
+    "index.html": "/fantasize_espn/index.html",
+    "precache-manifest.efe27e2f1b70cd07e2a789ae5e7aeaa7.js": "/fantasize_espn/precache-manifest.efe27e2f1b70cd07e2a789ae5e7aeaa7.js",
+    "service-worker.js": "/fantasize_espn/service-worker.js",
+    "static/css/main.fa95fa3c.chunk.css.map": "/fantasize_espn/static/css/main.fa95fa3c.chunk.css.map",
+    "static/media/logo.svg": "/fantasize_espn/static/media/logo.5d5d9eef.svg"
   }
 }
