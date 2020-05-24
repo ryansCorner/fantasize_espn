@@ -1,5 +1,4 @@
 import React from 'react'
-import { Navbar, Nav, FormControl, Button, Form, Col, Row, NavDropdown } from "react-bootstrap"
 import { withRouter, Link } from "react-router-dom";
 import './NavBar.css'
 
@@ -9,12 +8,58 @@ const NavBar = props => {
 
     return (
         <React.Fragment>
-            <Navbar collapseOnSelect expand="lg" bg='fantasize' variant="fantasize">
-                <Navbar.Brand href="/">HOME</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
+            <div className="head-padding">
+                <div className="header-area blacknav">
+                    <div id="sticky-header" className="main-header-area">
+                        <div className="container-fluid p-0">
+                            <div className="row align-items-center no-gutters">
+                                <div className="col-xl-2 col-lg-2">
+                                    <Link to={process.env.PUBLIC_URL + '/'}>
+                                        <img
+                                            src="https://avatars3.githubusercontent.com/u/42056419?s=460&u=b59de0b1bd390f01b3f6b6a90b049a3f76211278&v=4"
+                                            width="45"
+                                            height="45"
+                                            className="d-inline-block align-top"
+                                            alt="HubLink logo"
+                                        />
+                                        <div className="navbar-logo mt-1">Fantasize</div></Link>
+                                </div>
+                                <div className="col-xl-8 col-lg-8">
+                                    <div className="main-menu  d-none d-lg-block text-center">
+                                        <nav>
+                                            <ul id="navigation">
+                                                <li>
+                                                    <a className="active" href="/">Home</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/register">Register</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/blogs">Blog</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/faq">FAQ</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/about">About Us</a>
+                                                </li>
 
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <div className="col-lg-2 d-none d-lg-block">
+                                    <div className="log_chat_area d-flex align-items-end">
+                                        <a href="/login" data-scroll-nav="0" className="say_hi log-hed">Log In</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* <Navbar collapseOnSelect expand="lg" bg='fantasize' variant="fantasize">
+                <Navbar.Brand href={process.env.PUBLIC_URL + '/'}>HOME</Navbar.Brand>
                         <NavDropdown title="Teams" id="collasible-nav-dropdown">
                             {props.teams && props.teams.map((team, idx) => {
                                 return (
@@ -27,18 +72,7 @@ const NavBar = props => {
 
                                 )
                             })}
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    <Nav>
-                        <Nav.Link href="#deets">More deets</Nav.Link>
-                        <Nav.Link eventKey={2} href="#memes">
-                            Dank memes
-      </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            </Navbar> */}
         </React.Fragment>
     )
 }

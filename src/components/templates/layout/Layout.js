@@ -1,5 +1,4 @@
 import React from 'react'
-import { Col, Row, Container, Nav } from "react-bootstrap"
 import { withRouter } from 'react-router-dom'
 import ESPN from '../../../services/espnService'
 import ContentRouter from '../../navigation/contentRouter/ContentRouter'
@@ -780,6 +779,7 @@ class Layout extends React.Component {
     componentDidMount() {
         // ESPN.getTeamsAtWeek(this.state.scoringPeriodId, this.onTeamsAtWeekSuccess, this.onTeamsAtWeekError)
         // ESPN.getLeagueInfo(this.onGetLeagueInfoSuccess, this.onGetLeagueInfoError)
+        console.log('page loaded')
         ESPN.getStandings(551382, this.onStandingsSuccess, this.onStandingsrror)
         ESPN.boxScore(this.state.scoringPeriodId, 551382, this.onBoxScoreSuccess, this.onBoxScoreError)
 
@@ -789,56 +789,48 @@ class Layout extends React.Component {
         console.log('this.state', this.state)
         return (
             <React.Fragment>
-                <Container fluid className='layout-container-0padding'>
-                    <div className="layout-inner" >
+                <div className="layout-inner" >
 
-                        <div className="layout-navbar sticky-top">
+                    <div className="layout-navbar sticky-top">
 
-                            <Row className="navbar-row" >
-                                {/* <Col className='nav-container-col'> */}
-                                {/* <header> */}
-                                <NavBar
-                                    teams={this.state.teams}
-                                    onWeekChange={this.onWeekChange}
-                                    state={this.state}
-                                    onTeamClick={this.onTeamClick}
+                        <div className="navbar-row" >
+                            <NavBar
+                                teams={this.state.teams}
+                                onWeekChange={this.onWeekChange}
+                                state={this.state}
+                                onTeamClick={this.onTeamClick}
 
-                                />
-                                {/* </header> */}
-                                {/* </Col> */}
-                            </Row>
+                            />
                         </div>
-                        <div className="layout-container">
+                    </div>
+                    <div className="layout-container">
 
-                            <div className="layout-content">
-                                <div className="container-fluid">
-                                    <Row>
-                                        <Col>
-                                            {(this.state.leagueName && this.state.teams) && (
-                                                <ContentRouter
-                                                    state={this.state}
-                                                    onTeamClick={this.onTeamClick}
-                                                    activeTeam={this.state.activeTeam}
-                                                    activeRoster={this.state.activeRoster}
-                                                    onWeekChange={this.onWeekChange}
-                                                />
-                                            )}
-                                        </Col>
-                                    </Row>
+                        <div className="layout-content">
+                            <div className="container-fluid">
+                                <div className='row'>
+                                    <div className='col'>
+                                        {(this.state.leagueName && this.state.teams) && (
+                                            <ContentRouter
+                                                state={this.state}
+                                                onTeamClick={this.onTeamClick}
+                                                activeTeam={this.state.activeTeam}
+                                                activeRoster={this.state.activeRoster}
+                                                onWeekChange={this.onWeekChange}
+                                            />
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <Container>
-                            <Row>
-                                <Col>
-                                    <header>
-                                        <Footer />
-                                    </header>
-                                </Col>
-                            </Row>
-                        </Container>
                     </div>
-                </Container>
+                    <div className='row'>
+                        <div className='col'>
+                            <header>
+                                <Footer />
+                            </header>
+                        </div>
+                    </div>
+                </div>
             </React.Fragment>
         )
     }
