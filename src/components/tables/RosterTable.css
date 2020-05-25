@@ -1,5 +1,6 @@
 .roster-table {
   margin: auto;
+  display: inline-table;
     border-collapse: collapse;
     opacity: 0.9;
     background-color: rgb(255, 255, 255);

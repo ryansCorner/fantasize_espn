@@ -201,6 +201,7 @@ text-shadow: 2px 2px 3px #fdfafa;
 
 
 .team-table {
+  display: inline-table;
   border-collapse: collapse;
   width: 100%;
   background-color: snow;
@@ -229,7 +230,7 @@ text-shadow: 2px 2px 3px #fdfafa;
   font-size: 14px;
 }
 
-.team-table-row{
+.team-tablez-row{
   flex: block;
   flex-wrap: nowrap;
   margin-right: -15px;
