@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4b024814c9a7f432ec8fa2ca70e113c7",
+    "revision": "686f6f71c7424552186bd68801c252f8",
     "url": "/fantasize_espn/index.html"
   },
   {
-    "revision": "0e19a1756425e2c31c84",
-    "url": "/fantasize_espn/static/css/main.6711b11c.chunk.css"
+    "revision": "2daef7b84b46949f308f",
+    "url": "/fantasize_espn/static/css/main.a63bcd09.chunk.css"
   },
   {
     "revision": "7520edaceee95fc0f6fd",
     "url": "/fantasize_espn/static/js/2.864cbcd5.chunk.js"
   },
   {
-    "revision": "0e19a1756425e2c31c84",
-    "url": "/fantasize_espn/static/js/main.d6b63853.chunk.js"
+    "revision": "2daef7b84b46949f308f",
+    "url": "/fantasize_espn/static/js/main.654fbe44.chunk.js"
   },
   {
     "revision": "298b454503eb1b06c69d",
