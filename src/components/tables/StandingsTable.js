@@ -35,7 +35,7 @@ const StandingsTable = props => {
                         return (
                             <tr key={idx} id={team.id} >
                                 <td>{team.finalStandingsPosition}</td>
-                                <Link to='/teamPage'>
+                                <Link to={process.env.PUBLIC_URL + '/teamPage'}>
                                     <td key={idx}
                                         id={team.id}
                                         onClick={props.onTeamClick}

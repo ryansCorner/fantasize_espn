@@ -64,7 +64,7 @@ const NavBar = props => {
                             {props.teams && props.teams.map((team, idx) => {
                                 return (
 
-                                    <NavDropdown.Item href="/teamPage"
+                                    <NavDropdown.Item href={process.env.PUBLIC_URL + "/teamPage"}
                                         key={idx}
                                         id={team.id}
                                         onClick={props.onTeamClick}
