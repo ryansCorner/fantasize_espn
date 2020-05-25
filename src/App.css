@@ -207,7 +207,14 @@ text-shadow: 2px 2px 3px #fdfafa;
   background-color: snow;
   opacity: 0.9;
 }
-
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: grey;
+}
 .team-table #week{
   font-weight: 800;
 }
