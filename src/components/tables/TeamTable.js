@@ -31,7 +31,15 @@ const TeamTable = props => {
                             {props.matchups.map((matchup, idx) => {
                                 console.log('matchups: ', matchup)
                                 return (
-                                    <td className={'matchup-table-outcome' + (matchup.winner === props.team.abbreviation ? '-winner' : '-loser')}> {matchup.homeAbbrev} {matchup.homeScore} - {matchup.awayScore} {matchup.awayAbbrev}</td>
+                                    <td className={'matchup-table-outcome' + (matchup.winner === props.team.abbreviation ? '-winner' : '-loser')}>
+                                        <span id={(matchup.awayScore > matchup.homeScore) ? 'winner' : ''}>
+                                            {matchup.awayAbbrev} {matchup.awayScore}
+                                        </span>
+                                        <br />
+                                        <span id={matchup.homeScore > matchup.awayScore ? 'winner' : ''}>
+                                            {matchup.homeAbbrev} {matchup.homeScore}
+                                        </span>
+                                    </td>
                                 )
                             })}
                         </tr>

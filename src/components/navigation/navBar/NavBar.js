@@ -16,7 +16,7 @@ const NavBar = props => {
                                 <div className="col-xl-2 col-lg-2">
                                     <Link to={process.env.PUBLIC_URL + '/'}>
                                         <img
-                                            src="https://avatars3.githubusercontent.com/u/42056419?s=460&u=b59de0b1bd390f01b3f6b6a90b049a3f76211278&v=4"
+                                            src="https://www.shareicon.net/data/256x256/2016/04/22/753659_legend_512x512.png"
                                             width="45"
                                             height="45"
                                             className="d-inline-block align-top"
@@ -29,7 +29,7 @@ const NavBar = props => {
                                         <nav>
                                             <ul id="navigation">
                                                 <li>
-                                                    <a className="active" href="/">Home</a>
+                                                    <a className="active" href={process.env.PUBLIC_URL + '/'}>Home</a>
                                                 </li>
                                                 <li>
                                                     <a href="/register">Register</a>
