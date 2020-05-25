@@ -15,7 +15,7 @@ const TeamPage = props => {
                             <div className='row'>
 
                                 <img className='team-card-img' src={props.team.logoURL} />
-                                <div className='row team-card-details col-lg-2 col-xl-2 col-md-2 col-sm-1'>
+                                <div className='row team-card-details col-lg-2 col-xl-2 col-md-2 col-sm-2'>
                                     <h2>{props.team.name}</h2>
 
                                     <div>
@@ -23,7 +23,7 @@ const TeamPage = props => {
                                         <h5>({props.team.finalStandingsPosition} out of 10)</h5>
                                     </div>
                                 </div>
-                                <div className=' col-3 offset-6 pull-right'>
+                                <div className='col-3 offset-6 pull-right'>
 
                                     <div>
                                         <h6>{props.team.transactions.acquisitions} total acquisitions </h6>
