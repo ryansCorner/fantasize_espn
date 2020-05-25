@@ -5,7 +5,7 @@ import { withRouter, Link } from 'react-router-dom'
 const StandingsTable = props => {
     return (
         <React.Fragment>
-            <table className='table standings-table'>
+            <table className=' table-responsive table standings-table'>
                 <thead>
                     <tr>
                         <th>

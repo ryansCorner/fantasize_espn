@@ -441,7 +441,7 @@ class League extends React.Component {
 
                         <h1>
                             {this.state.leagueInfo.name.toUpperCase()} STANDINGS
-                    </h1>
+                        </h1>
                     )}
                     {this.state.teamsAtWeek && (
 
@@ -451,7 +451,7 @@ class League extends React.Component {
                     )}
 
                     <h1>MATCHUPS </h1>
-                    <table className='matchupsTable'>
+                    <table className=' table matchupsTable'>
                         <thead>
                             <tr>
                                 <th id='week'>
@@ -520,7 +520,7 @@ class League extends React.Component {
 
 
                     <h1>MATCHUPS </h1>
-                    <table className='matchupsTable'>
+                    <table className=' table matchupsTable'>
                         <thead>
                             <tr>
                                 <th id='week'>

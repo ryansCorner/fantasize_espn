@@ -11,7 +11,7 @@ const RosterTable = props => {
             <div className='col'>
 
                 <h1 className='roster-title'>{props.header}</h1>
-                <table className='roster-table'>
+                <table className=' table-responsive roster-table'>
                     <thead className='roster-table-head'>
                         <tr className='roster-table-head-row'>
                             <td className='roster-table-head-data'>Pos</td>

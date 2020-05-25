@@ -4,7 +4,7 @@ const MatchupTable = props => {
     return (
         <React.Fragment>
             <h1>MATCHUPS </h1>
-            <table className='matchupsTable'>
+            <table className=' table-responsive matchupsTable'>
                 <thead>
                     <tr>
                         <th id='week'>

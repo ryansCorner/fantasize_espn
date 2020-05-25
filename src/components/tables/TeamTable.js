@@ -5,7 +5,7 @@ const TeamTable = props => {
         <React.Fragment>
             <div className='col-12'>
 
-                <table className='table team-table '>
+                <table className=' table-responsive table team-table '>
                     <tbody>
                         <tr className='roster-table-head-row'>
                             <td><p>Week</p></td>

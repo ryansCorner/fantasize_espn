@@ -15,7 +15,7 @@ const TeamPage = props => {
                             <div className='row'>
 
                                 <img className='team-card-img' src={props.team.logoURL} />
-                                <div className='row team-card-details col-2'>
+                                <div className='row team-card-details col-lg-2 col-xl-2 col-md-2 col-sm-1'>
                                     <h2>{props.team.name}</h2>
 
                                     <div>
