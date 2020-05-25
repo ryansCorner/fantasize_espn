@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/fantasize_espn/static/css/main.437c7cee.chunk.css",
+    "main.css": "/fantasize_espn/static/css/main.2eea2650.chunk.css",
     "main.js": "/fantasize_espn/static/js/main.0f3408e9.chunk.js",
     "main.js.map": "/fantasize_espn/static/js/main.0f3408e9.chunk.js.map",
     "runtime~main.js": "/fantasize_espn/static/js/runtime~main.a37078da.js",
@@ -8,9 +8,9 @@
     "static/js/2.864cbcd5.chunk.js": "/fantasize_espn/static/js/2.864cbcd5.chunk.js",
     "static/js/2.864cbcd5.chunk.js.map": "/fantasize_espn/static/js/2.864cbcd5.chunk.js.map",
     "index.html": "/fantasize_espn/index.html",
-    "precache-manifest.320862db80fa618508033511ce61e779.js": "/fantasize_espn/precache-manifest.320862db80fa618508033511ce61e779.js",
+    "precache-manifest.c84e414445be4fca0f855a62ddfbfc2a.js": "/fantasize_espn/precache-manifest.c84e414445be4fca0f855a62ddfbfc2a.js",
     "service-worker.js": "/fantasize_espn/service-worker.js",
-    "static/css/main.437c7cee.chunk.css.map": "/fantasize_espn/static/css/main.437c7cee.chunk.css.map",
+    "static/css/main.2eea2650.chunk.css.map": "/fantasize_espn/static/css/main.2eea2650.chunk.css.map",
     "static/media/logo.svg": "/fantasize_espn/static/media/logo.5d5d9eef.svg"
   }
 }
