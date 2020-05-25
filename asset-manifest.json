@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/fantasize_espn/static/css/main.064c1696.chunk.css",
-    "main.js": "/fantasize_espn/static/js/main.2867173b.chunk.js",
-    "main.js.map": "/fantasize_espn/static/js/main.2867173b.chunk.js.map",
+    "main.css": "/fantasize_espn/static/css/main.8c55b382.chunk.css",
+    "main.js": "/fantasize_espn/static/js/main.92556a3c.chunk.js",
+    "main.js.map": "/fantasize_espn/static/js/main.92556a3c.chunk.js.map",
     "runtime~main.js": "/fantasize_espn/static/js/runtime~main.a37078da.js",
     "runtime~main.js.map": "/fantasize_espn/static/js/runtime~main.a37078da.js.map",
     "static/js/2.864cbcd5.chunk.js": "/fantasize_espn/static/js/2.864cbcd5.chunk.js",
     "static/js/2.864cbcd5.chunk.js.map": "/fantasize_espn/static/js/2.864cbcd5.chunk.js.map",
     "index.html": "/fantasize_espn/index.html",
-    "precache-manifest.62f739da330a89a6acfc3ccff23a644c.js": "/fantasize_espn/precache-manifest.62f739da330a89a6acfc3ccff23a644c.js",
+    "precache-manifest.a104bbb4c8edfa32f53da4fd274526b5.js": "/fantasize_espn/precache-manifest.a104bbb4c8edfa32f53da4fd274526b5.js",
     "service-worker.js": "/fantasize_espn/service-worker.js",
-    "static/css/main.064c1696.chunk.css.map": "/fantasize_espn/static/css/main.064c1696.chunk.css.map",
+    "static/css/main.8c55b382.chunk.css.map": "/fantasize_espn/static/css/main.8c55b382.chunk.css.map",
     "static/media/logo.svg": "/fantasize_espn/static/media/logo.5d5d9eef.svg"
   }
 }
