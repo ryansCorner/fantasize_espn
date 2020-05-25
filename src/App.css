@@ -40,6 +40,15 @@
   background-color: antiquewhite;
 }
 
+.homepage-container {
+  margin-top: 1.5rem;
+}
+
+.homepage-header{
+text-shadow: 2px 2px 1.5px #fdfafa;
+
+}
+
 .matchupsTable #week{
   font-weight: 800;
 }
