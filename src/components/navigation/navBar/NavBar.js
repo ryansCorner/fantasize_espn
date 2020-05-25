@@ -22,28 +22,15 @@ const NavBar = props => {
                                             className="d-inline-block align-top"
                                             alt="HubLink logo"
                                         />
-                                        <div className="navbar-logo mt-1">Fantasize</div></Link>
+                                    </Link>
                                 </div>
                                 <div className="col-xl-8 col-lg-8">
                                     <div className="main-menu  d-none d-lg-block text-center">
                                         <nav>
                                             <ul id="navigation">
                                                 <li>
-                                                    <a className="active" href={process.env.PUBLIC_URL + '/'}>Home</a>
+                                                    <a className="active" href={process.env.PUBLIC_URL + '/'}>Fantasize Home</a>
                                                 </li>
-                                                <li>
-                                                    <a href="/register">Register</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/blogs">Blog</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/faq">FAQ</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/about">About Us</a>
-                                                </li>
-
                                             </ul>
                                         </nav>
                                     </div>

@@ -44,10 +44,14 @@
   margin-top: 1.5rem;
 }
 
-.homepage-header{
-text-shadow: 2px 2px 1.5px #fdfafa;
+/* .homepage-header h1 h2{
+  flex-wrap: nowrap;
+  text-shadow: 2px 2px 3px rgb(255, 255, 255);
+  color: black;
+  font-weight: 800;
+  font-size: 52px
 
-}
+} */
 
 .matchupsTable #week{
   font-weight: 800;
@@ -99,11 +103,14 @@ text-shadow: 2px 2px 1.5px #fdfafa;
 
 
 .matchup-table-outcome-winner{
-  background-color: darkseagreen;
+  background-color: rgba(95, 247, 95, 0.602);
+  /* border-color: rgb(188, 250, 188) !important; */
 }
 
 .matchup-table-outcome-loser{
-  background-color: lightcoral;
+  /* background-color: rgba(233, 181, 181, 0.774) !important; */
+  /* border-color: rgb(233, 181, 181) !important; */
+
 }
 
 .standings-table {
@@ -196,7 +203,7 @@ text-shadow: 2px 2px 3px #fdfafa;
 .team-table {
   border-collapse: collapse;
   width: 100%;
-  background-color: blanchedalmond;
+  background-color: snow;
   opacity: 0.9;
 }
 

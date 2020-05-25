@@ -55,6 +55,7 @@ const TeamPage = props => {
                             </div>
                         </div>
                     </div>
+
                     <div className='row'>
                         <TeamTable
                             deviationFromProjection={props.deviationFromProjection}
@@ -63,18 +64,20 @@ const TeamPage = props => {
                             deviationFromOptimizedTotal={props.deviationFromOptimizedTotal}
                         />
                     </div>
-                    <div className='roster-table-row row'>
-                        <RosterTable
-                            header='Actual Roster'
-                            scoringPeriodId={props.scoringPeriodId}
-                            roster={props.roster}
-                        />
-                        <h1>VS.</h1>
-                        <RosterTable
-                            header='Optimized Roster'
-                            scoringPeriodId={props.scoringPeriodId}
-                            roster={props.optimizedRoster}
-                        />
+                    <div className="roster-card">
+                        <div className='roster-table-row row '>
+                            <RosterTable
+                                header='Actual Roster'
+                                scoringPeriodId={props.scoringPeriodId}
+                                roster={props.roster}
+                            />
+                            <h1 className='roster-vs'>VS.</h1>
+                            <RosterTable
+                                header='Optimized Roster'
+                                scoringPeriodId={props.scoringPeriodId}
+                                roster={props.optimizedRoster}
+                            />
+                        </div>
                     </div>
                 </React.Fragment >
             )

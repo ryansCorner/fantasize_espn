@@ -791,7 +791,7 @@ class Layout extends React.Component {
             <React.Fragment>
                 <div className="layout-inner" >
 
-                    <div className="layout-navbar sticky-top">
+                    <div className="layout-navbar">
 
                         <div className="navbar-row" >
                             <NavBar

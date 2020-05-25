@@ -2,18 +2,43 @@
   margin: auto;
     border-collapse: collapse;
     opacity: 0.9;
-    background-color: rgb(220, 233, 225);
+    background-color: rgb(255, 255, 255);
   }
 
   /* .rosterTableContainer{
 flex-direction: column;
   } */
 
+.roster-card{
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  /* max-width: 90%; */
+  word-wrap: break-word;
+  background-color: #ffffff54;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
 
-  .roster-title{
-flex-wrap: nowrap;
+
+.roster-title{
+  flex-wrap: nowrap;
+  text-shadow: 2px 2px 3px #000000;
+  color: white;
+  font-weight: 800;
   }
-
+  .roster-vs{
+    flex-wrap: nowrap;
+    text-shadow: 2px 2px 3px rgb(255, 255, 255);
+    color: black;
+    font-weight: 800;
+    font-size: 52px;
+    }
+      
   .bold{
     font-weight: 700;
   }

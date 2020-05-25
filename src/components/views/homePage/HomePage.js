@@ -9,9 +9,9 @@ const HomePage = props => {
             <div className='homepage-container'>
                 <div className='homepage-header'>
 
-                    <h1>Welcome to {props.leagueName}</h1>
+                    <h1 className='roster-title'>Welcome to {props.leagueName}</h1>
 
-                    <h2>Final Season Standings</h2>
+                    <h2 className='roster-title'>Final Season Standings</h2>
                 </div>
                 <StandingsTable
                     teams={props.teams}
