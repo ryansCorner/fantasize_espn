@@ -3,7 +3,7 @@ import React from 'react'
 const TeamTable = props => {
     return (
         <React.Fragment>
-            <div className='col-12'>
+            <div className='col-12' style={{ overflow: "scroll" }}>
 
                 <table className=' table-responsive table team-table '>
                     <tbody>
