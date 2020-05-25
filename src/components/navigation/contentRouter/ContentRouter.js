@@ -17,11 +17,11 @@ const ContentRouter = (props) => {
 
             <Route path="" component="" />
             <Route
-                exact path="/"
+                exact path={process.env.PUBLIC_URL + '/'}
                 render={props => <HomePage {...props} leagueName={state.leagueName} teams={state.teams} onTeamClick={onTeamClick} />} />
-            <Route path='/teamPage'
+            <Route path={process.env.PUBLIC_URL + '/teamPage'}
                 render={props => <TeamPage {...props} team={state.activeTeam} matchups={state.activeTeamMatchups} roster={state.activeRoster} ready={state.ready} deviationFromProjection={state.deviationFromProjection} onWeekChange={onWeekChange} scoringPeriodId={state.scoringPeriodId} deviationFromOptimizedTotal={state.deviationFromOptimizedTotal} optimizedRoster={state.optimizedRoster} />} />
-            <Route path='/league'
+            <Route path={process.env.PUBLIC_URL + '/league'}
                 render={props => <League {...props} team={state.activeTeam} />} />
         </React.Fragment>
     )
